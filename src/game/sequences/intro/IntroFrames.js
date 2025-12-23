@@ -1,0 +1,51 @@
+export const introFrames = {
+    "Intro1": {
+        key: 'Intro1',
+        media: 'intro1',
+        mediaType: 'image',
+        text: '',
+        next: 'Intro2'
+    },
+    "Intro2": {
+        key: 'Intro2',
+        media: 'intro2',
+        mediaType: 'image',
+        text: 'Engineer: Good morning, Bot 792. I am XYZ, the lead engineer aboard\nthis ship',
+        next: 'Intro3'
+    },
+    "Intro3": {
+        key: 'Intro3',
+        media: 'intro3',
+        mediaType: 'image',
+        text: 'Engineer: You were found you on the ground, incapacitiated in the rear\nsector',
+        next: 'Intro4'
+    },
+    "Intro4": {
+        key: 'Intro4',
+        media: 'intro4',
+        mediaType: 'image',
+        text: "Engineer: I've fixed you up as best I could, but you seem mostly fine\nalready",
+        next: 'Intro5'
+    },
+    "Intro5": {
+        key: 'Intro5',
+        media: 'intro5',
+        mediaType: 'image',
+        text: "Engineer: However, it looks like you're missing all but 1 of your Memory\nChips, not good...",
+        next: 'Intro6'
+    },
+    "Intro6": {
+        key: 'Intro6',
+        media: 'intro6',
+        mediaType: 'image',
+        text: 'Engineer: While we sort this out, please return to desk and resume your\nnormal duties.',
+        next: 'Intro7'
+    },
+    "Intro7": {
+        key: 'Intro7',
+        media: 'intro7',
+        mediaType: 'image',
+        text: "You: I can't remember a thing... what happened to me?",
+        next: 'EngineerRoom'
+    }
+};
