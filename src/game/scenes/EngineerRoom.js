@@ -16,12 +16,12 @@ export class EngineerRoom extends BaseScene
         // transition from intro
         if (this.registry.get('introPlaying')) {
             this.registry.set('introPlaying', false);
-            this.frozenText('I should look around and see what I can find out.')
+            this.frozenText('(Sam): I should look around and see what I can find out.')
         }
 
         // engineer asset
         if (!this.registry.get('tripped_bot')) {
-            this.makeButton('engineer_engineer', () => this.frozenText("Engineer: While we figure this out, please return to your normal duties."), 1);
+            this.makeButton('engineer_engineer', () => this.frozenText("Engineer: While this gets sorted out, please return to your desk\nand resume your normal duties."), 1);
         }
 
 
@@ -31,11 +31,9 @@ export class EngineerRoom extends BaseScene
          * else if screwdriver hinted and screwdriver not collected and bot tripped and, display screwdriver with option to pick up
          * else if screwdriver hinted and screwdriver collected, display nothing.
          */
-        if (!this.registry.get('hinted_screwdriver')) {
-            this.makeButton('engineer_screwdriver', () => this.frozenText("There is a screwdriver on this table."), 1);
-        } else if (this.registry.get('hinted_screwdriver') && !this.registry.get('collected_screwdriver') && !this.registry.get('tripped_bot')) {
-            this.makeButton('engineer_screwdriver', () => this.frozenText("There is a screwdriver on this table, but I shouldn't take anything\nwhile the engineer is there."), 1);
-        } else if (this.registry.get('hinted_screwdriver') && !this.registry.get('collected_screwdriver') && this.registry.get('tripped_bot')) {
+        if (!this.registry.get('collected_screwdriver') && !this.registry.get('tripped_bot')) {
+            this.makeButton('engineer_screwdriver', () => this.frozenText("(Sam): There is a screwdriver on this table, but I shouldn't take anything\nwhile the engineer is there."), 1);
+        } else if (this.registry.get('tripped_bot') && !this.registry.get('collected_screwdriver')) {
             const screwdriver = this.makeButton('engineer_screwdriver', () => this.collectItem(screwdriver, 'inv_screwdriver', 'collected_screwdriver', "(Sam): Maybe this screwdriver will come in handy."), 1);
         }
     }

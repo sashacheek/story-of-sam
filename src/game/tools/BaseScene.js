@@ -12,7 +12,8 @@ export class BaseScene extends Scene {
 
     createBase(background, title = "") {
         if (this.transition) {
-            this.cameras.main.fadeIn(150, 0, 0, 0);
+            const ui = this.scene.get('UI');
+            ui.fadeIn();
         }
         this.gameCenterX = this.scale.width / 2;
         this.gameCenterY = this.scale.height / 2;
@@ -58,6 +59,11 @@ export class BaseScene extends Scene {
 
     vidText(video, text) {
         const vid = this.add.video(this.gameCenterX, this.gameCenterY, video);
+            if (!this.registry.set('noMusic')) {
+                const music = this.sound.get('bgm');
+                music.setVolume(0.1);
+            }
+
             vid.play();
             vid.once('play', () => {
                 this.disableUI();
@@ -66,6 +72,9 @@ export class BaseScene extends Scene {
                 vid.destroy();
                 this.unhideTexts();
                 this.enableUI();
+                if (!this.registry.set('noMusic')) {
+                    music.setVolume(0.2);
+                }
                 this.frozenText(text);
             })
     }
@@ -90,12 +99,16 @@ export class BaseScene extends Scene {
         });
     }
 
-    collectItem = (item, inv_item, flag, text) => {
-        item.destroy();
+    collectItem = (item = "", inv_item, flag, text = "") => {
+        if (item != "") {
+            item.destroy();
+        }
         const ui = this.scene.get('UI');
         ui.addItem(inv_item);
-        this.registry.set(flag, true)
-        this.frozenText(text)
+        this.registry.set(flag, true);
+        if (text != "") {
+            this.frozenText(text)
+        }
      }
 
     canDrop(dropped_on_item, action) {
@@ -184,14 +197,11 @@ export class BaseScene extends Scene {
 
 moveLocation(location) {
     const ui = this.scene.get('UI');
+    ui.fadeOut(150);
 
-    this.cameras.main.fadeOut(150, 0, 0, 0);
-    ui.cameras.main.fadeOut(150, 0, 0, 0);
-
-    this.cameras.main.once('camerafadeoutcomplete', () => {
+    ui.cameras.main.once('camerafadeoutcomplete', () => {
         this.scene.start(location, { transition: true });
-
-        ui.cameras.main.fadeIn(150, 0, 0, 0);
+        ui.fadeIn(150);
     });
 }
 

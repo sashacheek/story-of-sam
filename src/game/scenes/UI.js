@@ -7,6 +7,11 @@ export class UI extends Scene {
     }
 
     create() {
+        this.cameras.main.resetFX();
+        this.cameras.main.setViewport(0, 0, this.scale.width, this.scale.height);
+        this.cameras.main.setScroll(0, 0);
+
+
         this.uiRoot = this.add.container(0, 0);
 
         this.inventory = this.add.container(20, 20);
@@ -74,32 +79,6 @@ this.input.on('dragend', (pointer, item, dropped) => {
 
 
 
-        // -------------------------
-        // UNIVERSAL DROP HANDLER
-        // -------------------------
-        // this.input.on('drop', (pointer, draggedItem, dropZone) => {
-        //     // 1️⃣ Drop on UI dropZone (optional, if you ever add one)
-        //     if (dropZone && dropZone._onDropAction) {
-        //         dropZone._onDropAction(draggedItem, dropZone);
-        //         return;
-        //     }
-
-        //     // 2️⃣ Drop on world scene objects with _onDropAction
-        //     const activeScenes = this.scene.manager.getScenes(true); // only active
-        //     activeScenes.forEach(scene => {
-        //         scene.children.list.forEach(obj => {
-        //             if (obj._onDropAction) {
-        //                 const objBounds = obj.getBounds();
-        //                 const itemBounds = draggedItem.getBounds();
-
-        //                 if (Phaser.Geom.Intersects.RectangleToRectangle(itemBounds, objBounds)) {
-        //                     obj._onDropAction(draggedItem, obj);
-        //                 }
-        //             }
-        //         });
-        //     });
-        // });
-
 this.input.on('drop', (pointer, item, dropZone) => {
     if (dropZone && dropZone._onDropAction) {
         dropZone._onDropAction(item, dropZone);
@@ -109,42 +88,6 @@ this.input.on('drop', (pointer, item, dropZone) => {
 
     }
 
-    // -------------------------
-    // ADD ITEM TO INVENTORY
-    // -------------------------
-    // addItem(textureKey) {
-    //     if (this.items.find(i => i.texture.key === textureKey)) return;
-    //     if (this.items.length >= this.slots.length) return;
-
-    //     const slot = this.slots[this.items.length];
-
-    //     const item = this.add.image(slot.x + slot.width / 2, slot.y, textureKey)
-    //         .setOrigin(0.5)
-    //         .setInteractive({ draggable: true });
-
-    //     this.input.setDraggable(item);
-
-    //     item.setData('startX', item.x);
-    //     item.setData('startY', item.y);
-
-    //     // Scale animation
-    //     const padding = 4;
-    //     const scale = Math.min(
-    //         (slot.width - padding) / item.width,
-    //         (slot.height - padding) / item.height
-    //     );
-
-    //     item.setScale(0);
-    //     this.tweens.add({
-    //         targets: item,
-    //         scale,
-    //         duration: 150,
-    //         ease: 'Back.Out'
-    //     });
-
-    //     this.inventory.add(item);
-    //     this.items.push(item);
-    // }
 
     addItem(textureKey, useContainer = true) {
     if (this.items.find(i => i.texture.key === textureKey)) return;
@@ -185,7 +128,7 @@ this.input.on('drop', (pointer, item, dropZone) => {
         targets: item,
         scale,
         duration: 150,
-        ease: 'Back.Out'
+        ease: 'Quad.easeOut'
     });
 
     if (useContainer) this.inventory.add(item);
@@ -193,5 +136,20 @@ this.input.on('drop', (pointer, item, dropZone) => {
 
     return item;
 }
+
+fadeOut(duration = 150) {
+    const cam = this.cameras.main;
+    cam.resetFX();
+    cam.setAlpha(1);
+    cam.fadeOut(duration, 0, 0, 0);
+}
+
+fadeIn(duration = 150) {
+    const cam = this.cameras.main;
+    cam.resetFX();
+    cam.setAlpha(1);
+    cam.fadeIn(duration, 0, 0, 0);
+}
+
 
 }

@@ -10,7 +10,7 @@ export const introFrames = {
         key: 'Intro2',
         media: 'intro2',
         mediaType: 'image',
-        text: 'Engineer: Good morning, Bot 792. I am XYZ, the lead engineer aboard\nthis ship',
+        text: 'Engineer: Hello? Hi! Welcome back Bot 792, botname Sam. I am XYZ, the\nengineer aboard this spaceship',
         next: 'Intro3'
     },
     "Intro3": {
@@ -24,7 +24,7 @@ export const introFrames = {
         key: 'Intro4',
         media: 'intro4',
         mediaType: 'image',
-        text: "Engineer: I've fixed you up as best I could, but you seem mostly fine\nalready",
+        text: "Engineer: I've fixed you up as best as I could, but you seem mostly fine\nalready",
         next: 'Intro5'
     },
     "Intro5": {
@@ -38,7 +38,7 @@ export const introFrames = {
         key: 'Intro6',
         media: 'intro6',
         mediaType: 'image',
-        text: 'Engineer: While we sort this out, please return to desk and resume your\nnormal duties.',
+        text: 'Engineer: While this gets sortted this out, please return to your desk\nand resume your normal duties.',
         next: 'Intro7'
     },
     "Intro7": {

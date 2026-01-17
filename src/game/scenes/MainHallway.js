@@ -9,6 +9,19 @@ export class MainHallway extends BaseScene
 
     create()
     {
+        // DEGUG
+        if (this.registry.get('skipPhaseOne')) { // Skip Phase 1
+            for (var flag of this.registry.get('phaseOneFlags'))
+            {
+                this.registry.set(flag, true);
+            }
+            for (const [item, flag] of Object.entries(this.registry.get('phaseOneItems')))
+            {
+                this.collectItem("", item, flag);
+            }
+        }
+
+
         const accessDenied = () => {
             let text = '(Sam): I don\'t have the access to go in there.';
             if (!this.registry.get('shown_access_denied')) {
@@ -23,7 +36,8 @@ export class MainHallway extends BaseScene
         const rear_deck = this.makeButton('main_to_rear', () => this.moveLocation('RearDeck'));
         this.makeHover(rear_deck, 'Rear Sector', 800, 850);
 
-        const research = this.makeButton('main_to_research', () => accessDenied());
+        // research
+        const research = this.makeButton('main_to_research', () => this.registry.get('collected_research_pass') ? this.moveLocation('Research') : accessDenied());
         this.makeHover(research, 'Research', 200, 400);
 
         const bathroom = this.makeButton('main_to_bathroom', () => accessDenied());

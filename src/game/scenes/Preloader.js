@@ -1,6 +1,6 @@
-import { Scene } from 'phaser';
+import { BaseScene } from '../tools/BaseScene';
 
-export class Preloader extends Scene
+export class Preloader extends BaseScene
 {
     constructor ()
     {
@@ -29,7 +29,6 @@ export class Preloader extends Scene
 
     preload ()
     {
-        //  Load the assets for the game - Replace with your own assets
         this.load.setPath('assets');
 
         this.load.image('logo', 'logo.png');
@@ -49,17 +48,24 @@ export class Preloader extends Scene
         this.load.image('intro6', 'intro/6.PNG');
         this.load.image('intro7', 'intro/7.PNG');
 
-        // area
+        // areas
         this.load.image('rear_deck', 'areas/rear_module.PNG');
         this.load.image('main_hallway', 'areas/main_hallway.PNG');
         this.load.image('bot_office', 'areas/bot_office.PNG');
         this.load.image('engineer_room', 'areas/engineer_room.PNG');
+        this.load.image('storage_closet', 'areas/storage_closet.PNG');
+        this.load.image('research', 'areas/research.PNG');
 
         // area changeables
         this.load.image('bo_bot_desk','area_changeables/bo_bot_desk.PNG');
         this.load.image('bo_engineer_and_bot','area_changeables/bo_engineer_and_bot.PNG');
         this.load.image('engineer_screwdriver','area_changeables/engineer_screwdriver.PNG');
         this.load.image('engineer_engineer','area_changeables/engineer_engineer.PNG');
+        this.load.image('research_lead_ra', 'area_changeables/research_lead_ra.PNG');
+        this.load.image('research_researcher_1', 'area_changeables/research_researcher_1.PNG');
+        this.load.image('research_researcher_2', 'area_changeables/research_researcher_2.PNG');
+        this.load.image('storage_bucket', 'area_changeables/storage_bucket.PNG');
+        this.load.image('storage_memory_card_1', 'area_changeables/storage_memory_card_1.PNG');
 
         // navigation buttons
         this.load.image('engineer_to_rear', 'navigation_buttons/engineer_to_rear.PNG');
@@ -74,6 +80,8 @@ export class Preloader extends Scene
         this.load.image('main_to_bo', 'navigation_buttons/main_to_bo.PNG');
         this.load.image('bo_to_main', 'navigation_buttons/bo_to_main.PNG');
         this.load.image('main_to_rear', 'navigation_buttons/main_to_rear.PNG');
+        this.load.image('storage_to_rear', 'navigation_buttons/storage_to_rear.PNG');
+        this.load.image('research_to_main', 'navigation_buttons/research_to_main.PNG')
 
         // interaction buttons
         this.load.image('clock', 'interaction_buttons/clock.PNG');
@@ -82,6 +90,7 @@ export class Preloader extends Scene
         this.load.image('sams_desk', 'interaction_buttons/sams_desk.PNG');
         this.load.image('stressed_bot', 'interaction_buttons/stressed_bot.PNG');
         this.load.image('test', 'interaction_buttons/test.png');
+        this.load.image('storage_wires_drawer', 'interaction_buttons/storage_wires_drawer.PNG');
 
         // collectibles
         this.load.image('ruler', 'interaction_buttons/ruler.PNG');
@@ -89,26 +98,71 @@ export class Preloader extends Scene
         // inventory
         this.load.image('inv_ruler', 'inventory/meter_stick.PNG');
         this.load.image('inv_screwdriver', 'inventory/screwdriver.PNG');
+        this.load.image('inv_bucket', 'inventory/storage_bucket.PNG');
         
     }
 
     create ()
     {
-        // flags
-        this.registry.set('tripped_bot', false);
-        this.registry.set('collected_ruler', false);
-        this.registry.set('collected_screwdriver', false);
-        this.registry.set('hinted_storage', false);
-        this.registry.set('hinted_screwdriver', false);
-        this.registry.set('shown_storage_error', false);
-        this.registry.set('shown_access_denied', false);
-
         // DEBUG
-        const skipIntro = false;
+        this.registry.set('skipIntro', true);
+        this.registry.set('skipPhaseOne', false);
+        this.registry.set('noMusic', true);
+
+        // Phase 1
+        this.registry.set('phaseOneFlags', [
+           'tripped_bot' ,
+           'collected_ruler',
+           'hinted_storage',
+           'shown_storage_error',
+           'shown_access_denied',
+           'unlocked_storage',
+           'collected_memory_card_1'
+        ])
+
+        this.registry.set('phaseOneItems', {
+            'inv_ruler': 'collected_ruler',
+            'inv_screwdriver': 'collected_screwdriver'
+        })
+
+        // Phase 2
+        this.registry.set('phaseTwoFlags', [
+            'collected_research_pass'
+        ])
+
+        this.registry.set('phaseTwoItems', {
+            'inv_bucket' : 'collected_bucket'
+        })
+
+
+        // Set all flags as false
+        for (var flag of this.registry.get('phaseOneFlags'))
+        {
+            this.registry.set(flag, false);
+        }
+        for (const [item, flag] of Object.entries(this.registry.get('phaseOneItems')))
+        {
+            this.registry.set(flag, false)
+        }
+                for (var flag of this.registry.get('phaseTwoFlags'))
+        {
+            this.registry.set(flag, false);
+        }
+        for (const [item, flag] of Object.entries(this.registry.get('phaseTwoItems')))
+        {
+            this.registry.set(flag, false)
+        }
+
+
 
         this.scene.launch('UI');
 
-        if (skipIntro) {
+        if (!this.registry.get('noMusic'))
+        {
+            this.scene.launch('MusicScene');
+        }
+
+        if (this.registry.get('skipIntro') || this.registry.get('skipPhaseOne')) {
             this.scene.start('MainHallway');
         } else {
             this.scene.start('MainMenu');
