@@ -1,3 +1,5 @@
+
+
 /**
  * Typewriter animation with skip support and delayed start
  * @param {Phaser.GameObjects.Text} target
@@ -37,7 +39,7 @@ export function animateText(target, speedInMs = 24, delayMs = 100) {
                         finished = true;
                         return resolve();
                     }
-
+                    // show background img
                     visibleText += message[visibleText.length];
                     target.text = visibleText + invisibleMessage.substring(visibleText.length);
 

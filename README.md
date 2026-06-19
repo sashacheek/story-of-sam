@@ -1,3 +1,10 @@
+npm run build
+npm run electron
+npm run dist
+
+
+Output: release/My Phaser Game Setup.exe
+
 # Phaser Vite Template
 
 This is a Phaser 3 project template that uses Vite for bundling. It supports hot-reloading for quick development workflow and includes scripts to generate production-ready builds.
