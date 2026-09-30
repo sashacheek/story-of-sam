@@ -1,22 +1,24 @@
-function enableUI(scene) {
-  scene.input.enabled = true;
-  scene.scene.wake("UI");
+import * as SceneState from "./SceneState";
+
+function enableUI() {
+  SceneState.getScene().input.enabled = true;
+  SceneState.getScene().scene.wake("UI");
 }
 
-function disableUI(scene) {
-  hideTexts(scene);
-  scene.input.enabled = false;
-  scene.scene.sleep("UI");
+function disableUI() {
+  hideTexts();
+  SceneState.getScene().input.enabled = false;
+  SceneState.getScene().scene.sleep("UI");
 }
 
-function hideTexts(scene) {
-  scene.children.list
-    .filter((obj) => obj.elem_type === "hoverText")
+function hideTexts() {
+  SceneState.getScene()
+    .children.list.filter((obj) => obj.elem_type === "hoverText")
     .forEach((obj) => obj.setDepth(-1));
 }
-function unhideTexts(scene) {
-  scene.children.list
-    .filter((obj) => obj.elem_type === "hoverText")
+function unhideTexts() {
+  SceneState.getScene()
+    .children.list.filter((obj) => obj.elem_type === "hoverText")
     .forEach((obj) => obj.setDepth(1));
 }
 

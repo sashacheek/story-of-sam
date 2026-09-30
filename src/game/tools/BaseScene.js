@@ -1,4 +1,6 @@
 import { Scene } from "phaser";
+import * as SceneState from "./SceneState.js";
+
 import { animateText } from "../tools/Typewriter";
 import * as UITool from "./UITool.js";
 // import * as TextTool from "./TextTool.js";
@@ -18,6 +20,7 @@ export class BaseScene extends Scene {
     if (data?.showUI !== undefined) {
       this.showUI = data.showUI;
     }
+    SceneState.setScene(this);
   }
 
   createBase(background, title = "") {
@@ -51,17 +54,6 @@ export class BaseScene extends Scene {
       align: "right",
     });
   }
-
-  // disableUI() {
-  //   this.hideTexts(this);
-  //   this.input.enabled = false;
-  //   this.scene.sleep("UI");
-  // }
-
-  // enableUI() {
-  //   this.input.enabled = true;
-  //   this.scene.wake("UI");
-  // }
 
   makeButton(
     img,
@@ -102,12 +94,12 @@ export class BaseScene extends Scene {
 
     vid.play();
     vid.once("play", () => {
-      this.uitool.disableUI(this);
+      this.uitool.disableUI();
     });
     vid.once("complete", () => {
       vid.destroy();
-      this.uitool.unhideTexts(this);
-      this.uitool.enableUI(this);
+      this.uitool.unhideTexts();
+      this.uitool.enableUI();
       if (this.registry.get("noMusic") === false) {
         music.setVolume(0.2);
       }
@@ -165,7 +157,7 @@ export class BaseScene extends Scene {
       vid.play();
 
       vid.once("play", () => {
-        this.uitool.disableUI(this);
+        this.uitool.disableUI();
         if (previousVid) {
           previousVid.destroy();
         }
@@ -173,8 +165,8 @@ export class BaseScene extends Scene {
       });
 
       vid.once("complete", () => {
-        this.uitool.unhideTexts(this);
-        this.uitool.enableUI(this);
+        this.uitool.unhideTexts();
+        this.uitool.enableUI();
 
         if (currentIndex < texts.length) {
           const currentTextData = texts[currentIndex];
@@ -292,7 +284,7 @@ export class BaseScene extends Scene {
   }
 
   frozenText(text, onClose) {
-    this.uitool.hideTexts(this);
+    this.uitool.hideTexts();
     this.registry.set("frozen", true);
 
     const text_bg = this.add
@@ -348,7 +340,7 @@ export class BaseScene extends Scene {
             onComplete: () => {
               text_bg.destroy();
               this.registry.set("frozen", false);
-              this.uitool.unhideTexts(this);
+              this.uitool.unhideTexts();
 
               if (onClose) onClose();
             },
@@ -383,7 +375,7 @@ export class BaseScene extends Scene {
 
       if (index >= texts.length) {
         this.registry.set("frozen", false);
-        this.uitool.unhideTexts(this);
+        this.uitool.unhideTexts();
 
         if (text_bg) {
           this.tweens.add({
@@ -414,7 +406,7 @@ export class BaseScene extends Scene {
       }
 
       this.registry.set("frozen", true);
-      this.uitool.hideTexts(this);
+      this.uitool.hideTexts();
 
       if (!text_bg) {
         text_bg = this.add.image(960, 920, "text_bar_trimmed");
