@@ -1,4 +1,5 @@
 import * as SceneState from "./SceneState";
+import * as texttool from "./TextTool";
 
 function makeButton(
   img,
@@ -57,12 +58,12 @@ function collectItem(item = "", inv_item, flag, text = "") {
   ui.addItem(inv_item);
   SceneState.getScene().registry.set(flag, true);
   if (text != "") {
-    SceneState.getScene().frozenText(text);
+    texttool.frozenText(text);
   }
 }
 
 function canDrop(dropped_on_item, action) {
-  dropped_on_item.setInteractive({ dropZone: true }); // enable drop detection
+  dropped_on_item.setInteractive({ dropZone: true });
   dropped_on_item._onDropAction = action;
 }
 

@@ -1,9 +1,8 @@
 import { Scene } from "phaser";
 import * as SceneState from "./SceneState.js";
 
-import { animateText } from "../tools/Typewriter";
 import * as UITool from "./UITool.js";
-// import * as TextTool from "./TextTool.js";
+import * as TextTool from "./TextTool.js";
 import * as ButtonTool from "./ButtonTool.js";
 
 export class BaseScene extends Scene {
@@ -11,7 +10,7 @@ export class BaseScene extends Scene {
     super(sceneKey);
 
     this.uitool = UITool;
-    // this.texttool = TextTool;
+    this.texttool = TextTool;
     this.buttontool = ButtonTool;
   }
 
@@ -79,7 +78,7 @@ export class BaseScene extends Scene {
       if (this.registry.get("noMusic") === false) {
         music.setVolume(0.2);
       }
-      this.frozenText(text);
+      this.texttool.frozenText(text);
     });
   }
 
@@ -149,7 +148,7 @@ export class BaseScene extends Scene {
 
           if (Array.isArray(currentTextData)) {
             // Pass true as the 3rd argument to wait for complete text erasure before moving on
-            this.frozenTexts(
+            this.texttool.frozenTexts(
               currentTextData,
               () => {
                 currentIndex++;
@@ -161,7 +160,7 @@ export class BaseScene extends Scene {
               true,
             );
           } else {
-            this.frozenText(currentTextData, () => {
+            this.texttool.frozenText(currentTextData, () => {
               currentIndex++;
               this.time.delayedCall(200, () => {
                 playNextStep();
@@ -176,218 +175,6 @@ export class BaseScene extends Scene {
     };
 
     playNextStep();
-  }
-
-  showContinue() {
-    let text = "Click Anywhere To Continue";
-    this.continueText = this.add.text(650, 745, text, {
-      fontFamily: "Walter Turncoat",
-      fontSize: 48,
-      color: "black",
-      padding: { x: 10, y: 5 },
-      strokeThickness: 10,
-      align: "right",
-    });
-
-    this.tweens.add({
-      targets: this.continueText,
-      alpha: { from: 0, to: 1 },
-      ease: "Sine.InOut",
-      duration: 900,
-      repeat: -1,
-      yoyo: true,
-    });
-  }
-
-  removeContinue() {
-    if (this.continueText) {
-      this.continueText.destroy();
-    }
-    if (this.continueTimer) {
-      this.continueTimer.destroy();
-    }
-  }
-
-  createTimer() {
-    this.continueTimer = this.time.delayedCall(
-      5000,
-      this.showContinue,
-      [],
-      this,
-    );
-  }
-
-  frozenText(text, onClose) {
-    this.uitool.hideTexts();
-    this.registry.set("frozen", true);
-
-    const text_bg = this.add
-      .image(960, 920, "text_bar_trimmed")
-      .setScale(0.9)
-      .setDepth(100);
-
-    const textObj = this.add
-      .text(130, 850, text, {
-        fontFamily: "Walter Turncoat",
-        fontSize: 48,
-        color: "black",
-      })
-      .setDepth(101);
-
-    this.tweens.add({
-      targets: text_bg,
-      scale: 1,
-      ease: "Power2",
-      duration: 100,
-    });
-
-    let finished = false;
-    animateText(textObj).then(() => {
-      finished = true;
-      this.createTimer();
-    });
-
-    const clickHandler = () => {
-      if (!finished) {
-        textObj.skipText();
-      } else {
-        this.removeContinue();
-        this.input.off("pointerdown", clickHandler);
-
-        this.tweens.add({
-          targets: textObj,
-          scale: 0.9,
-          x: 220,
-          duration: 100,
-          ease: "Power2",
-          onComplete: function () {
-            textObj.destroy();
-          },
-        });
-
-        if (text_bg) {
-          this.tweens.add({
-            targets: text_bg,
-            scale: 0.9,
-            duration: 100,
-            ease: "Power2",
-            onComplete: () => {
-              text_bg.destroy();
-              this.registry.set("frozen", false);
-              this.uitool.unhideTexts();
-
-              if (onClose) onClose();
-            },
-          });
-        }
-      }
-    };
-
-    this.input.on("pointerdown", clickHandler);
-  }
-
-  frozenTexts(texts, action = null, executeAtEnd = false) {
-    let btn = null;
-    let index = 0;
-    let text_bg = null;
-
-    const showNext = () => {
-      this.removeContinue();
-      if (index == texts.length - 1) {
-        if (action && !executeAtEnd) {
-          btn = action();
-          if (btn && typeof btn.setScale === "function") {
-            btn.setScale(0.9);
-            this.tweens.add({
-              targets: btn,
-              scale: 1,
-              duration: 100,
-            });
-          }
-        }
-      }
-
-      if (index >= texts.length) {
-        this.registry.set("frozen", false);
-        this.uitool.unhideTexts();
-
-        if (text_bg) {
-          this.tweens.add({
-            targets: text_bg,
-            scale: 0.9,
-            duration: 100,
-            onComplete: () => {
-              text_bg.destroy();
-
-              // 2. Video Sequence Behavior: Only trigger progression after the layout completely closes
-              if (action && executeAtEnd) {
-                action();
-              }
-            },
-          });
-        }
-
-        // Cleanly dismiss and fade out the puzzle button if the user chose to click away instead
-        if (btn && typeof btn.destroy === "function") {
-          this.tweens.add({
-            targets: btn,
-            scale: 0.9,
-            duration: 100,
-            onComplete: () => btn.destroy(),
-          });
-        }
-        return;
-      }
-
-      this.registry.set("frozen", true);
-      this.uitool.hideTexts();
-
-      if (!text_bg) {
-        text_bg = this.add.image(960, 920, "text_bar_trimmed");
-        text_bg.setScale(0.9).setDepth(100);
-        this.tweens.add({ targets: text_bg, scale: 1, duration: 100 });
-      }
-
-      const textObj = this.add
-        .text(130, 850, texts[index], {
-          fontFamily: "Walter Turncoat",
-          fontSize: 48,
-          color: "black",
-        })
-        .setDepth(101);
-
-      let finished = false;
-      animateText(textObj).then(() => {
-        finished = true;
-        this.createTimer();
-      });
-
-      const clickHandler = () => {
-        if (!finished) {
-          textObj.skipText();
-          if (index != 0) {
-            finished = true;
-          }
-        } else {
-          this.input.off("pointerdown", clickHandler);
-
-          this.tweens.add({
-            targets: textObj,
-            alpha: 0,
-            duration: 100,
-            onComplete: () => {
-              textObj.destroy();
-              index++;
-              showNext();
-            },
-          });
-        }
-      };
-
-      this.input.on("pointerdown", clickHandler);
-    };
-
-    showNext();
   }
 
   moveLocation(location) {

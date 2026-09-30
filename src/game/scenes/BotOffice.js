@@ -16,7 +16,7 @@ export class BotOffice extends BaseScene {
 
     // Energy cells bot
     this.energy_bot = this.buttontool.makeButton("coin_bot", () =>
-      this.frozenTexts([
+      this.texttool.frozenTexts([
         "Bot: Hey, you! You're one of the new bots, right? Sam, was it?",
         "Bot: I'm working on a little side project but I need 10 energy cells for it.\nCould you gather them for me? I'll give you something special if you do.",
       ]),
@@ -25,7 +25,7 @@ export class BotOffice extends BaseScene {
     // Lead bot
     const unlockResearch = () => {
       this.registry.set("collected_research_pass", true);
-      this.frozenTexts([
+      this.texttool.frozenTexts([
         "Lead Bot: Where is the Lead Research Assisstant? I need some very\nimportant files from him.",
         "Lead Bot: You want to fetch him for me? Sure, that would be great.",
         "Lead Bot: Here, take this key pass. It will get you into the research\nlab. Have him meet me here.",
@@ -34,7 +34,7 @@ export class BotOffice extends BaseScene {
 
     if (!this.registry.get("collected_memory_card_1")) {
       this.buttontool.makeButton("lead_bot", () =>
-        this.frozenText(
+        this.texttool.frozenText(
           "Lead Bot: Where is the Lead Research Assisstant? I need some very\nimportant files from him.",
         ),
       );
@@ -45,7 +45,7 @@ export class BotOffice extends BaseScene {
     // if trippod bot is true, change clock text and prevent clock game from triggering (?) or send into completed game just to view
     this.buttontool.makeButton("clock_wires", () => {
       if (!this.registry.get("tripped_bot")) {
-        this.frozenTexts(
+        this.texttool.frozenTexts(
           [
             "There is a panel on the wall with wires leading to the clock.",
             "I think I could hack into this and scramble the clock without anybody\nseeing.",
@@ -73,7 +73,7 @@ export class BotOffice extends BaseScene {
 
     const hintStorage = () => {
       // makeClockDroppable();
-      this.frozenTexts([
+      this.texttool.frozenTexts([
         "Bot: So much to do and so little time! I have to finish all this and go to\ncomms for shift change at 9.",
         "Bot: Have I seen anything strange? Well... Now that you mention it, I did\nhear something strange by the storage closet earlier.",
         "Bot: And that's around where they found that bot that got messed\nwith, too!",
@@ -115,7 +115,7 @@ export class BotOffice extends BaseScene {
         this.buttontool.makeButton(
           "bo_engineer_and_bot",
           () =>
-            this.frozenText(
+            this.texttool.frozenText(
               "(Sam): The engineer is in a deep focus while repairing the fallen bot.",
             ),
           1,
@@ -163,7 +163,9 @@ export class BotOffice extends BaseScene {
     // Interactables
     // Clock
     const clock = this.buttontool.makeButton("clock", () =>
-      this.frozenText("(Sam): There is a large digital clock on this wall."),
+      this.texttool.frozenText(
+        "(Sam): There is a large digital clock on this wall.",
+      ),
     );
   }
 }

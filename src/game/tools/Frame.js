@@ -1,7 +1,7 @@
 // takes in image or video, text, next frame on click
 
 import { BaseScene } from "../tools/BaseScene";
-import { animateText } from "./Typewriter";
+// import { animateText } from "./Typewriter";
 
 export class Frame extends BaseScene {
   constructor(key) {

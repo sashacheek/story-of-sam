@@ -26,7 +26,7 @@ export class MainHallway extends BaseScene {
         this.registry.set("shown_access_denied", true);
         this.vidText("placeholder", text);
       } else {
-        this.frozenText(text);
+        this.texttool.frozenText(text);
       }
     };
 

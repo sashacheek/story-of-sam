@@ -56,7 +56,7 @@ export class RearDeck extends BaseScene {
               }
               this.registry.set("hinted_screwdriver", true);
               this.uitool.enableUI();
-              this.frozenText(
+              this.texttool.frozenText(
                 "(Sam): If I could just open up the card reader, maybe I could fix it.",
               );
             });
@@ -66,7 +66,7 @@ export class RearDeck extends BaseScene {
               music.setVolume(0.2);
             }
             this.uitool.enableUI();
-            this.frozenText(
+            this.texttool.frozenText(
               "(Sam): The card reader is glitching, I can't go in there right now",
             );
           }
@@ -93,12 +93,12 @@ export class RearDeck extends BaseScene {
           }
           this.registry.set("hinted_screwdriver", true);
           this.uitool.enableUI();
-          this.frozenText(
+          this.texttool.frozenText(
             "(Sam): If I could just open up the card reader, maybe I could fix it.",
           );
         });
       } else {
-        this.frozenText(
+        this.texttool.frozenText(
           this.registry.get("hinted_screwdriver")
             ? "(Sam): If I could just open up the card reader, maybe I could fix it."
             : "(Sam): The card reader is glitching, I can't go in there right now",
@@ -117,7 +117,7 @@ export class RearDeck extends BaseScene {
       1340,
       895,
     );
-    // const clock = this.buttontool.makeButton('clock', () => this.frozenText("(Sam): "), 1, null, 930, 50);
+    // const clock = this.buttontool.makeButton('clock', () => this.texttool.frozenText("(Sam): "), 1, null, 930, 50);
     this.buttontool.makeHover(storage_closet, "Storage Closet", 1095, 675);
     // droppable
 

@@ -16,7 +16,7 @@ export class Research extends BaseScene {
     this.buttontool.makeButton(
       "research_researcher_1",
       () => {
-        this.frozenText(
+        this.texttool.frozenText(
           "Researcher 1: Hi I am researcher 1. This is a hint about the confidential\npass",
         );
         this.registry.set("hinted_confidential_pass", true);
@@ -31,7 +31,7 @@ export class Research extends BaseScene {
     this.buttontool.makeButton(
       "research_researcher_2",
       () =>
-        this.frozenTexts(
+        this.texttool.frozenTexts(
           [
             "Researcher 2: Hi I am researcher 2.",
             "Would you like to help with xyz?",

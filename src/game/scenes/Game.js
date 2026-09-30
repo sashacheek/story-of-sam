@@ -1,5 +1,4 @@
 import { Scene } from "phaser";
-import { animateText } from "../tools/Typewriter";
 
 export class Game extends Scene {
   constructor() {

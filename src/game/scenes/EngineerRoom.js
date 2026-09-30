@@ -16,7 +16,7 @@ export class EngineerRoom extends BaseScene {
     // transition from intro
     if (this.registry.get("introPlaying")) {
       this.registry.set("introPlaying", false);
-      this.frozenText(
+      this.texttool.frozenText(
         "(Sam): I should look around and see what I can find out.",
       );
     }
@@ -27,7 +27,7 @@ export class EngineerRoom extends BaseScene {
       this.leg = this.buttontool.makeButton(
         "engineer_leg_closed",
         () => {
-          this.frozenText(
+          this.texttool.frozenText(
             "The parts of a robot leg lie on this table. Maybe I could open it with the\nright tools.",
           );
         },
@@ -55,7 +55,7 @@ export class EngineerRoom extends BaseScene {
       this.buttontool.makeButton(
         "engineer_engineer",
         () =>
-          this.frozenText(
+          this.texttool.frozenText(
             "Engineer: While this gets sorted out, please return to your desk\nand resume your normal duties.",
           ),
         1,
@@ -75,7 +75,7 @@ export class EngineerRoom extends BaseScene {
       this.buttontool.makeButton(
         "engineer_screwdriver",
         () =>
-          this.frozenText(
+          this.texttool.frozenText(
             "(Sam): There is a screwdriver on this table, but I shouldn't take anything\nwhile the engineer is there.",
           ),
         1,

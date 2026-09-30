@@ -45,7 +45,7 @@ export class StorageCloset extends BaseScene {
 
     // wires
     this.buttontool.makeButton("storage_wires_drawer", () =>
-      this.frozenText("(Sam): There are loose wires in this drawer."),
+      this.texttool.frozenText("(Sam): There are loose wires in this drawer."),
     );
 
     // bucket
