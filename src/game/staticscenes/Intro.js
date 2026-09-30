@@ -1,17 +1,8 @@
-import { Scene } from "phaser";
-import { Frame } from "../../tools/Frame";
-import { introFrames } from "./IntroFrames";
-import { BaseScene } from "../../tools/BaseScene";
+import { BaseScene } from "../support/BaseScene";
 
 export class Intro extends BaseScene {
   constructor() {
     super("Intro");
-  }
-
-  createFrame(frameKey) {
-    if (!this.scene.get(frameKey)) {
-      this.scene.add(frameKey, new Frame(frameKey), false);
-    }
   }
 
   create() {
@@ -35,18 +26,6 @@ export class Intro extends BaseScene {
       ],
       () => {
         this.moveLocation("EngineerRoom");
-        // Object.keys(introFrames).forEach((key) => {
-        //   this.createFrame(key);
-        // });
-        // transition into
-        // Start the first frame
-        // this.scene.start("Intro6", {
-        //   media: "intro6",
-        //   mediaType: "image",
-        //   text: "Engineer: While this gets sorted this out, please return to your desk\nand resume your normal duties.",
-        //   nextScene: "Intro7",
-        //   framesList: introFrames,
-        // });
       },
     );
   }

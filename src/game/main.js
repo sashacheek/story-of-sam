@@ -1,20 +1,20 @@
-import { Boot } from "./scenes/Boot";
-import { Game as MainGame } from "./scenes/Game";
+import { Boot } from "./support/Boot";
+import { Game as MainGame } from "./support/Game";
 import { RearDeck } from "./scenes/RearDeck";
 import { MainHallway } from "./scenes/MainHallway";
 import { BotOffice } from "./scenes/BotOffice";
 import { EngineerRoom } from "./scenes/EngineerRoom";
 import { StorageCloset } from "./scenes/StorageCloset";
 import { Research } from "./scenes/Research";
-import { MainMenu } from "./scenes/MainMenu";
-import { Preloader } from "./scenes/Preloader";
+import { MainMenu } from "./staticscenes/MainMenu";
+import { Preloader } from "./support/Preloader";
 import { AUTO, Game } from "phaser";
-import { Intro } from "./sequences/intro/Intro";
-import { StorageError } from "./sequences/storage/StorageError";
-import { UI } from "./scenes/UI";
-import { Music } from "./scenes/Music";
-import { Credits } from "./scenes/Credits";
-import { ClockPuzzle } from "./scenes/ClockPuzzle";
+import { Intro } from "./staticscenes/Intro";
+// import { StorageError } from "./sequences/storage/StorageError";
+import { UI } from "./support/UI";
+import { Music } from "./support/Music";
+import { Credits } from "./staticscenes/Credits";
+import { ClockPuzzle } from "./staticscenes/ClockPuzzle";
 
 //  Find out more information about the Game Config at:
 //  https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -40,7 +40,6 @@ const config = {
     EngineerRoom,
     StorageCloset,
     Research,
-    StorageError,
     UI,
     Music,
     Credits,

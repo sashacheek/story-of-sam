@@ -1,4 +1,4 @@
-import { BaseScene } from "../tools/BaseScene";
+import { BaseScene } from "../support/BaseScene";
 
 export class Credits extends BaseScene {
   constructor() {

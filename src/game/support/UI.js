@@ -1,5 +1,5 @@
 // UI.js
-import { BaseScene } from "../tools/BaseScene";
+import { BaseScene } from "./BaseScene";
 
 // import * as ButtonTool from "../tools/ButtonTool";
 

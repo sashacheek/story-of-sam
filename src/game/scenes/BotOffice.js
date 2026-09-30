@@ -1,5 +1,5 @@
 // BotOffice.js
-import { BaseScene } from "../tools/BaseScene";
+import { BaseScene } from "../support/BaseScene";
 
 export class BotOffice extends BaseScene {
   constructor() {

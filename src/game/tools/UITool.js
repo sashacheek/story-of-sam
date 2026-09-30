@@ -1,4 +1,4 @@
-import * as SceneState from "./SceneState";
+import * as SceneState from "../support/SceneState";
 
 function enableUI() {
   SceneState.getScene().input.enabled = true;

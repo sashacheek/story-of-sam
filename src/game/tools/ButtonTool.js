@@ -1,4 +1,4 @@
-import * as SceneState from "./SceneState";
+import * as SceneState from "../support/SceneState";
 import * as texttool from "./TextTool";
 
 function makeButton(

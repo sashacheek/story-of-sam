@@ -79,15 +79,6 @@ export class Preloader extends Scene {
 
     // Images
 
-    // sequences
-    this.load.image("intro1", "intro/1.PNG");
-    this.load.image("intro2", "intro/2.PNG");
-    this.load.image("intro3", "intro/3.PNG");
-    this.load.image("intro4", "intro/4.PNG");
-    this.load.image("intro5", "intro/5.PNG");
-    this.load.image("intro6", "intro/6.PNG");
-    this.load.image("intro7", "intro/7.PNG");
-
     // areas
     this.load.image("menu", "areas/menu.png");
     this.load.image("rear_deck", "areas/rear_module.PNG");
@@ -204,7 +195,6 @@ export class Preloader extends Scene {
     this.load.image("lead_bot", "interaction_buttons/lead_bot.PNG");
     this.load.image("sams_desk", "interaction_buttons/sams_desk.PNG");
     this.load.image("stressed_bot", "interaction_buttons/stressed_bot.PNG");
-    this.load.image("test", "interaction_buttons/test.png");
     this.load.image(
       "storage_wires_drawer",
       "interaction_buttons/storage_wires_drawer.PNG",
@@ -217,11 +207,6 @@ export class Preloader extends Scene {
       "interaction_buttons/help_researcher.png",
     );
 
-    // collectibles
-    // this.load.image("ruler", "interaction_buttons/ruler.png");
-
-    // inventory
-    // this.load.image("inv_ruler", "inventory/meter_stick.PNG");
     this.load.image("inv_screwdriver", "inventory/screwdriver.PNG");
     this.load.image("inv_bucket", "inventory/storage_bucket.PNG");
     this.load.image("text_bar", "inventory/text_bar.PNG");
@@ -253,11 +238,6 @@ export class Preloader extends Scene {
     this.load.image("node_conn_17-18", "clock_game/node_connections/17-18.png");
     this.load.image("node_conn_18-19", "clock_game/node_connections/18-19.png");
     this.load.image("node_conn_20-21", "clock_game/node_connections/20-21.png");
-
-    //puzzle 1
-    this.load.image("puzzle1_bg", "puzzle1/puzzle1_bg.png");
-    this.load.image("puzzle1_curve", "puzzle1/puzzle1_curve.png");
-    this.load.image("puzzle1_straight", "puzzle1/puzzle1_straight.png");
   }
 
   create() {

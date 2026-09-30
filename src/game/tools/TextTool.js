@@ -1,4 +1,4 @@
-import * as SceneState from "./SceneState";
+import * as SceneState from "../support/SceneState";
 import * as uitool from "./UITool";
 
 function animateText(target, speedInMs = 24, delayMs = 100) {

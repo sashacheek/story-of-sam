@@ -1,4 +1,4 @@
-import { BaseScene } from "../tools/BaseScene";
+import { BaseScene } from "../support/BaseScene";
 
 export class Research extends BaseScene {
   constructor() {
@@ -58,7 +58,6 @@ export class Research extends BaseScene {
         "research_lead_ra",
         () => {
           this.registry.set("talked_lead_ra", true);
-          // memory_card_1.destroy();
           this.vidtool.vidSequence(
             [
               "lead_ra_leaves_1",
