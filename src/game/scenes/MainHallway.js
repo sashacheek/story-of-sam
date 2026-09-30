@@ -24,7 +24,7 @@ export class MainHallway extends BaseScene {
       let text = "(Sam): I don't have the access to go in there.";
       if (!this.registry.get("shown_access_denied")) {
         this.registry.set("shown_access_denied", true);
-        this.vidText("placeholder", text);
+        this.vidtool.vidText("placeholder", text);
       } else {
         this.texttool.frozenText(text);
       }

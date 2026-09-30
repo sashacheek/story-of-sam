@@ -262,7 +262,7 @@ export class Preloader extends Scene {
 
   create() {
     // DEBUG
-    this.registry.set("skipIntro", true);
+    this.registry.set("skipIntro", false);
     this.registry.set("skipPhaseOne", false);
     this.registry.set("noMusic", true);
 

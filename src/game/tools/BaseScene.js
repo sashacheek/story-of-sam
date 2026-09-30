@@ -4,6 +4,7 @@ import * as SceneState from "./SceneState.js";
 import * as UITool from "./UITool.js";
 import * as TextTool from "./TextTool.js";
 import * as ButtonTool from "./ButtonTool.js";
+import * as VidTool from "./VidTool.js";
 
 export class BaseScene extends Scene {
   constructor(sceneKey) {
@@ -12,6 +13,7 @@ export class BaseScene extends Scene {
     this.uitool = UITool;
     this.texttool = TextTool;
     this.buttontool = ButtonTool;
+    this.vidtool = VidTool;
   }
 
   init(data) {
@@ -60,122 +62,122 @@ export class BaseScene extends Scene {
     return image;
   }
 
-  vidText(video, text) {
-    const vid = this.add.video(this.gameCenterX, this.gameCenterY, video);
-    if (this.registry.get("noMusic") === false) {
-      const music = this.sound.get("bgm");
-      music.setVolume(0.1);
-    }
+  // vidText(video, text) {
+  //   const vid = this.add.video(this.gameCenterX, this.gameCenterY, video);
+  //   if (this.registry.get("noMusic") === false) {
+  //     const music = this.sound.get("bgm");
+  //     music.setVolume(0.1);
+  //   }
 
-    vid.play();
-    vid.once("play", () => {
-      this.uitool.disableUI();
-    });
-    vid.once("complete", () => {
-      vid.destroy();
-      this.uitool.unhideTexts();
-      this.uitool.enableUI();
-      if (this.registry.get("noMusic") === false) {
-        music.setVolume(0.2);
-      }
-      this.texttool.frozenText(text);
-    });
-  }
+  //   vid.play();
+  //   vid.once("play", () => {
+  //     this.uitool.disableUI();
+  //   });
+  //   vid.once("complete", () => {
+  //     vid.destroy();
+  //     this.uitool.unhideTexts();
+  //     this.uitool.enableUI();
+  //     if (this.registry.get("noMusic") === false) {
+  //       music.setVolume(0.2);
+  //     }
+  //     this.texttool.frozenText(text);
+  //   });
+  // }
 
-  vidSequence(vids, texts, onComplete = null) {
-    let currentIndex = 0;
-    let previousVid = null;
+  // vidSequence(vids, texts, onComplete = null) {
+  //   let currentIndex = 0;
+  //   let previousVid = null;
 
-    if (this.registry.get("noMusic") === false) {
-      const music = this.sound.get("bgm");
-      if (music) music.setVolume(0.1);
-    }
+  //   if (this.registry.get("noMusic") === false) {
+  //     const music = this.sound.get("bgm");
+  //     if (music) music.setVolume(0.1);
+  //   }
 
-    if (this.scene.isActive("UI")) {
-      this.scene.setVisible(false, "UI");
-      this.scene.sendToBack("UI");
-    }
+  //   if (this.scene.isActive("UI")) {
+  //     this.scene.setVisible(false, "UI");
+  //     this.scene.sendToBack("UI");
+  //   }
 
-    const playNextStep = () => {
-      if (currentIndex >= vids.length) {
-        if (previousVid) {
-          previousVid.destroy();
-          previousVid = null;
-        }
-        if (this.registry.get("noMusic") === false) {
-          const music = this.sound.get("bgm");
-          if (music) music.setVolume(0.2);
-        }
+  //   const playNextStep = () => {
+  //     if (currentIndex >= vids.length) {
+  //       if (previousVid) {
+  //         previousVid.destroy();
+  //         previousVid = null;
+  //       }
+  //       if (this.registry.get("noMusic") === false) {
+  //         const music = this.sound.get("bgm");
+  //         if (music) music.setVolume(0.2);
+  //       }
 
-        // if (!this.scene.isActive("UI")) {
-        this.scene.setVisible(true, "UI");
-        this.scene.bringToTop("UI");
-        const ui = this.scene.get("UI");
-        ui.setGameplayVisible(this.showUI);
-        // }
+  //       // if (!this.scene.isActive("UI")) {
+  //       this.scene.setVisible(true, "UI");
+  //       this.scene.bringToTop("UI");
+  //       const ui = this.scene.get("UI");
+  //       ui.setGameplayVisible(this.showUI);
+  //       // }
 
-        // Add these 3 lines:
-        if (typeof onComplete === "function") {
-          onComplete();
-        }
+  //       // Add these 3 lines:
+  //       if (typeof onComplete === "function") {
+  //         onComplete();
+  //       }
 
-        return;
-      }
+  //       return;
+  //     }
 
-      const currentVidKey = vids[currentIndex];
-      const vid = this.add.video(
-        this.gameCenterX,
-        this.gameCenterY,
-        currentVidKey,
-      );
+  //     const currentVidKey = vids[currentIndex];
+  //     const vid = this.add.video(
+  //       this.gameCenterX,
+  //       this.gameCenterY,
+  //       currentVidKey,
+  //     );
 
-      vid.play();
+  //     vid.play();
 
-      vid.once("play", () => {
-        this.uitool.disableUI();
-        if (previousVid) {
-          previousVid.destroy();
-        }
-        previousVid = vid;
-      });
+  //     vid.once("play", () => {
+  //       this.uitool.disableUI();
+  //       if (previousVid) {
+  //         previousVid.destroy();
+  //       }
+  //       previousVid = vid;
+  //     });
 
-      vid.once("complete", () => {
-        this.uitool.unhideTexts();
-        this.uitool.enableUI();
+  //     vid.once("complete", () => {
+  //       this.uitool.unhideTexts();
+  //       this.uitool.enableUI();
 
-        if (currentIndex < texts.length) {
-          const currentTextData = texts[currentIndex];
+  //       if (currentIndex < texts.length) {
+  //         const currentTextData = texts[currentIndex];
 
-          if (Array.isArray(currentTextData)) {
-            // Pass true as the 3rd argument to wait for complete text erasure before moving on
-            this.texttool.frozenTexts(
-              currentTextData,
-              () => {
-                currentIndex++;
-                this.time.delayedCall(200, () => {
-                  playNextStep();
-                });
-                return null;
-              },
-              true,
-            );
-          } else {
-            this.texttool.frozenText(currentTextData, () => {
-              currentIndex++;
-              this.time.delayedCall(200, () => {
-                playNextStep();
-              });
-            });
-          }
-        } else {
-          currentIndex++;
-          playNextStep();
-        }
-      });
-    };
+  //         if (Array.isArray(currentTextData)) {
+  //           // Pass true as the 3rd argument to wait for complete text erasure before moving on
+  //           this.texttool.frozenTexts(
+  //             currentTextData,
+  //             () => {
+  //               currentIndex++;
+  //               this.time.delayedCall(200, () => {
+  //                 playNextStep();
+  //               });
+  //               return null;
+  //             },
+  //             true,
+  //           );
+  //         } else {
+  //           this.texttool.frozenText(currentTextData, () => {
+  //             currentIndex++;
+  //             this.time.delayedCall(200, () => {
+  //               playNextStep();
+  //             });
+  //           });
+  //         }
+  //       } else {
+  //         currentIndex++;
+  //         playNextStep();
+  //       }
+  //     });
+  //   };
 
-    playNextStep();
-  }
+  //   playNextStep();
+  // }
 
   moveLocation(location) {
     const ui = this.scene.get("UI");

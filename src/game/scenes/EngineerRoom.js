@@ -39,7 +39,7 @@ export class EngineerRoom extends BaseScene {
           ? item.texture.key
           : item.list && item.list[0].texture.key;
         if (textureKey === "inv_screwdriver") {
-          this.vidSequence(
+          this.vidtool.vidSequence(
             ["open_leg"],
             ["(Sam): I could use these loose wires inside."],
             () => {

@@ -19,7 +19,7 @@ export class Intro extends BaseScene {
     this.gameCenterY = this.scale.height / 2;
     this.registry.set("introPlaying", true);
 
-    this.vidSequence(
+    this.vidtool.vidSequence(
       ["intro_1", "intro_2", "intro_3", "intro_4", "intro_5", "intro_6"],
       [
         [

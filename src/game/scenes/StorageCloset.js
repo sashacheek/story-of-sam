@@ -20,8 +20,8 @@ export class StorageCloset extends BaseScene {
     const clickMemoryCard = (memory_card_1) => {
       this.registry.set("collected_memory_card_1", true);
       memory_card_1.destroy();
-      // this.vidText("memory_1", "(Sam): No way!");
-      this.vidSequence(
+      // this.vidtool.vidText("memory_1", "(Sam): No way!");
+      this.vidtool.vidSequence(
         ["card1_1", "card1_2", "card1_3", "card1_4"],
         [
           "Unknown: Yeah, it's all going well. They don't suspect a thing.",

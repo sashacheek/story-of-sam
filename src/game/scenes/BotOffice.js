@@ -94,7 +94,7 @@ export class BotOffice extends BaseScene {
       this.stressed_bot_button = this.buttontool.makeButton(
         "stressed_bot",
         () => {
-          this.vidSequence(
+          this.vidtool.vidSequence(
             ["attempt_steal_metal"],
             [
               [
@@ -128,7 +128,7 @@ export class BotOffice extends BaseScene {
             this.stressed_bot_button = this.buttontool.makeButton(
               "stressed_bot",
               () => {
-                this.vidSequence(
+                this.vidtool.vidSequence(
                   ["attempt_steal_metal"],
                   [
                     [
@@ -142,7 +142,7 @@ export class BotOffice extends BaseScene {
                 );
               },
             );
-            this.vidSequence(
+            this.vidtool.vidSequence(
               ["attempt_steal_pass"],
               [
                 [

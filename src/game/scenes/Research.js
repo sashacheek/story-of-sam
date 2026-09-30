@@ -59,7 +59,7 @@ export class Research extends BaseScene {
         () => {
           this.registry.set("talked_lead_ra", true);
           // memory_card_1.destroy();
-          this.vidSequence(
+          this.vidtool.vidSequence(
             [
               "lead_ra_leaves_1",
               "lead_ra_leaves_2",
