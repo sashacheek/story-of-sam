@@ -8,12 +8,12 @@ export class StorageCloset extends BaseScene {
 
   create() {
     this.createBase("storage_closet", "Storage Closet");
-    const storage_to_rear = this.makeButton(
+    const storage_to_rear = this.buttontool.makeButton(
       "storage_to_rear",
       () => this.moveLocation("RearDeck"),
       1,
     );
-    this.makeHover(storage_to_rear, "Rear Sector", 1090, 815);
+    this.buttontool.makeHover(storage_to_rear, "Rear Sector", 1090, 815);
 
     // Items
     // memory card
@@ -36,7 +36,7 @@ export class StorageCloset extends BaseScene {
     };
     if (!this.registry.get("collected_memory_card_1")) {
       let memory_card_1;
-      memory_card_1 = this.makeButton(
+      memory_card_1 = this.buttontool.makeButton(
         "storage_memory_card_1",
         () => clickMemoryCard(memory_card_1),
         1,
@@ -44,16 +44,16 @@ export class StorageCloset extends BaseScene {
     }
 
     // wires
-    this.makeButton("storage_wires_drawer", () =>
+    this.buttontool.makeButton("storage_wires_drawer", () =>
       this.frozenText("(Sam): There are loose wires in this drawer."),
     );
 
     // bucket
     if (!this.registry.get("collected_bucket")) {
-      const bucket = this.makeButton(
+      const bucket = this.buttontool.makeButton(
         "storage_bucket",
         () =>
-          this.collectItem(
+          this.buttontool.collectItem(
             bucket,
             "inv_bucket",
             "collected_bucket",

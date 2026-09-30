@@ -9,13 +9,13 @@ export class BotOffice extends BaseScene {
 
   create() {
     this.createBase("bot_office", "Bot Office");
-    const main_hallway = this.makeButton("bo_to_main", () =>
+    const main_hallway = this.buttontool.makeButton("bo_to_main", () =>
       this.moveLocation("MainHallway"),
     );
-    this.makeHover(main_hallway, "Main Corridor", 60, 820);
+    this.buttontool.makeHover(main_hallway, "Main Corridor", 60, 820);
 
     // Energy cells bot
-    this.energy_bot = this.makeButton("coin_bot", () =>
+    this.energy_bot = this.buttontool.makeButton("coin_bot", () =>
       this.frozenTexts([
         "Bot: Hey, you! You're one of the new bots, right? Sam, was it?",
         "Bot: I'm working on a little side project but I need 10 energy cells for it.\nCould you gather them for me? I'll give you something special if you do.",
@@ -33,17 +33,17 @@ export class BotOffice extends BaseScene {
     };
 
     if (!this.registry.get("collected_memory_card_1")) {
-      this.makeButton("lead_bot", () =>
+      this.buttontool.makeButton("lead_bot", () =>
         this.frozenText(
           "Lead Bot: Where is the Lead Research Assisstant? I need some very\nimportant files from him.",
         ),
       );
     } else {
-      this.makeButton("lead_bot", () => unlockResearch());
+      this.buttontool.makeButton("lead_bot", () => unlockResearch());
     }
 
     // if trippod bot is true, change clock text and prevent clock game from triggering (?) or send into completed game just to view
-    this.makeButton("clock_wires", () => {
+    this.buttontool.makeButton("clock_wires", () => {
       if (!this.registry.get("tripped_bot")) {
         this.frozenTexts(
           [
@@ -51,7 +51,7 @@ export class BotOffice extends BaseScene {
             "I think I could hack into this and scramble the clock without anybody\nseeing.",
           ],
           () =>
-            this.makeButton(
+            this.buttontool.makeButton(
               "hack_clock",
               () => {
                 this.registry.set("frozen", false);
@@ -82,7 +82,7 @@ export class BotOffice extends BaseScene {
 
     if (!this.registry.get("tripped_bot")) {
       this.stressed_bot = this.addImage("bo_bot_desk");
-      this.stressed_bot_button = this.makeButton(
+      this.stressed_bot_button = this.buttontool.makeButton(
         "stressed_bot",
         hintStorage,
         undefined,
@@ -91,25 +91,28 @@ export class BotOffice extends BaseScene {
     }
 
     if (this.registry.get("attempted_steal_pass")) {
-      this.stressed_bot_button = this.makeButton("stressed_bot", () => {
-        this.vidSequence(
-          ["attempt_steal_metal"],
-          [
+      this.stressed_bot_button = this.buttontool.makeButton(
+        "stressed_bot",
+        () => {
+          this.vidSequence(
+            ["attempt_steal_metal"],
             [
-              "Bot: Look, I don't care what you're trying to do, as long as you do\nsomething for me first.",
-              "Bot: If you get me just one energy cell, you're in the clear. Sound good?",
+              [
+                "Bot: Look, I don't care what you're trying to do, as long as you do\nsomething for me first.",
+                "Bot: If you get me just one energy cell, you're in the clear. Sound good?",
+              ],
             ],
-          ],
-          () => {
-            this.registry.set("attempted_steal_metal", true);
-          },
-        );
-      });
+            () => {
+              this.registry.set("attempted_steal_metal", true);
+            },
+          );
+        },
+      );
     }
 
     if (this.registry.get("tripped_bot")) {
       if (!this.registry.get("hinted_confidential_pass")) {
-        this.makeButton(
+        this.buttontool.makeButton(
           "bo_engineer_and_bot",
           () =>
             this.frozenText(
@@ -118,24 +121,27 @@ export class BotOffice extends BaseScene {
           1,
         );
       } else {
-        this.makeButton(
+        this.buttontool.makeButton(
           "bo_engineer_and_bot",
           () => {
             this.registry.set("attempted_steal_pass", true);
-            this.stressed_bot_button = this.makeButton("stressed_bot", () => {
-              this.vidSequence(
-                ["attempt_steal_metal"],
-                [
+            this.stressed_bot_button = this.buttontool.makeButton(
+              "stressed_bot",
+              () => {
+                this.vidSequence(
+                  ["attempt_steal_metal"],
                   [
-                    "Bot: Look, I don't care what you're trying to do, as long as you do\nsomething for me first.",
-                    "Bot: If you get me just one energy cell, you're in the clear. Sound good?",
+                    [
+                      "Bot: Look, I don't care what you're trying to do, as long as you do\nsomething for me first.",
+                      "Bot: If you get me just one energy cell, you're in the clear. Sound good?",
+                    ],
                   ],
-                ],
-                () => {
-                  this.registry.set("attempted_steal_metal", true);
-                },
-              );
-            });
+                  () => {
+                    this.registry.set("attempted_steal_metal", true);
+                  },
+                );
+              },
+            );
             this.vidSequence(
               ["attempt_steal_pass"],
               [
@@ -146,19 +152,6 @@ export class BotOffice extends BaseScene {
               ],
               () => {
                 this.registry.set("attempted_steal_pass", true);
-                // this.energy_bot.destroy();
-                // this.energy_bot = this.makeButton("coin_bot", () =>
-                //   // trigger video
-                //   this.vidSequence(
-                //     ["attempt_steal_metal"],
-                //     [
-                //       [
-                //         "Look, I don't care what you're trying to do, as long as you do something\nfor me first",
-                //         "If you get me just one energy cell, you're in the clear. Sound good?",
-                //       ],
-                //     ],
-                //   ),
-                // );
               },
             );
           },
@@ -167,36 +160,10 @@ export class BotOffice extends BaseScene {
       }
     }
 
-    // Your desk
-    // this.makeButton('sams_desk', () => this.frozenText("(Sam): This is my desk"));
-
     // Interactables
     // Clock
-    const clock = this.makeButton("clock", () =>
+    const clock = this.buttontool.makeButton("clock", () =>
       this.frozenText("(Sam): There is a large digital clock on this wall."),
     );
-
-    // if (
-    //   this.registry.get("hinted_storage") &&
-    //   !this.registry.get("tripped_bot")
-    // ) {
-    //   makeClockDroppable();
-    // }
-
-    // Items
-    // let ruler;
-    // if (!this.registry.get("collected_ruler")) {
-    //   ruler = this.makeButton(
-    //     "ruler",
-    //     () =>
-    //       this.collectItem(
-    //         ruler,
-    //         "inv_ruler",
-    //         "collected_ruler",
-    //         "(Sam): There's a meter stick by this shelf.",
-    //       ),
-    //     1,
-    //   );
-    // }
   }
 }

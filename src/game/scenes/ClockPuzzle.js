@@ -51,7 +51,7 @@ export class ClockPuzzle extends BaseScene {
       const visual_stack = [];
 
       for (let i = 1; i <= 21; i++) {
-        this.makeButton(`clock_${i}`, () => {
+        this.buttontool.makeButton(`clock_${i}`, () => {
           const last_node = nodes_stack.at(-1);
           if (nodes[last_node].includes(i)) {
             if (!nodes_stack.includes(i)) {
@@ -82,6 +82,10 @@ export class ClockPuzzle extends BaseScene {
       }
     }
 
-    this.makeButton("credits_to_menu", () => this.moveLocation("BotOffice"), 1);
+    this.buttontool.makeButton(
+      "credits_to_menu",
+      () => this.moveLocation("BotOffice"),
+      1,
+    );
   }
 }

@@ -16,7 +16,7 @@ export class MainHallway extends BaseScene {
       for (const [item, flag] of Object.entries(
         this.registry.get("phaseOneItems"),
       )) {
-        this.collectItem("", item, flag);
+        this.buttontool.collectItem("", item, flag);
       }
     }
 
@@ -31,38 +31,42 @@ export class MainHallway extends BaseScene {
     };
 
     this.createBase("main_hallway", "Main Corridor");
-    const rear_deck = this.makeButton("main_to_rear", () =>
+    const rear_deck = this.buttontool.makeButton("main_to_rear", () =>
       this.moveLocation("RearDeck"),
     );
-    this.makeHover(rear_deck, "Rear Sector", 800, 850);
+    this.buttontool.makeHover(rear_deck, "Rear Sector", 800, 850);
 
     // research
-    const research = this.makeButton("main_to_research", () =>
+    const research = this.buttontool.makeButton("main_to_research", () =>
       this.registry.get("collected_research_pass")
         ? this.moveLocation("Research")
         : accessDenied(),
     );
-    this.makeHover(research, "Research", 200, 400);
+    this.buttontool.makeHover(research, "Research", 200, 400);
 
-    const bathroom = this.makeButton("main_to_bathroom", () => accessDenied());
-    this.makeHover(bathroom, "Bathroom", 515, 240);
-
-    const bunkers = this.makeButton("main_to_bunkers", () => accessDenied());
-    this.makeHover(bunkers, "Bunkers", 730, 130);
-
-    const restricted = this.makeButton("main_to_restricted", () =>
+    const bathroom = this.buttontool.makeButton("main_to_bathroom", () =>
       accessDenied(),
     );
-    this.makeHover(restricted, "Restricted\nHallway", 830, 50);
+    this.buttontool.makeHover(bathroom, "Bathroom", 515, 240);
 
-    const cafeteria = this.makeButton("main_to_cafeteria", () =>
+    const bunkers = this.buttontool.makeButton("main_to_bunkers", () =>
       accessDenied(),
     );
-    this.makeHover(cafeteria, "Cafeteria", 990, 150);
+    this.buttontool.makeHover(bunkers, "Bunkers", 730, 130);
 
-    const bot_office = this.makeButton("main_to_bo", () =>
+    const restricted = this.buttontool.makeButton("main_to_restricted", () =>
+      accessDenied(),
+    );
+    this.buttontool.makeHover(restricted, "Restricted\nHallway", 830, 50);
+
+    const cafeteria = this.buttontool.makeButton("main_to_cafeteria", () =>
+      accessDenied(),
+    );
+    this.buttontool.makeHover(cafeteria, "Cafeteria", 990, 150);
+
+    const bot_office = this.buttontool.makeButton("main_to_bo", () =>
       this.moveLocation("BotOffice"),
     );
-    this.makeHover(bot_office, "Bot Office", 1380, 400);
+    this.buttontool.makeHover(bot_office, "Bot Office", 1380, 400);
   }
 }

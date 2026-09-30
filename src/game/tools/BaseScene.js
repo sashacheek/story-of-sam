@@ -4,7 +4,7 @@ import * as SceneState from "./SceneState.js";
 import { animateText } from "../tools/Typewriter";
 import * as UITool from "./UITool.js";
 // import * as TextTool from "./TextTool.js";
-// import * as ButtonTool from "./ButtonTool.js";
+import * as ButtonTool from "./ButtonTool.js";
 
 export class BaseScene extends Scene {
   constructor(sceneKey) {
@@ -12,7 +12,7 @@ export class BaseScene extends Scene {
 
     this.uitool = UITool;
     // this.texttool = TextTool;
-    // this.buttontool = ButtonTool;
+    this.buttontool = ButtonTool;
   }
 
   init(data) {
@@ -53,30 +53,6 @@ export class BaseScene extends Scene {
       strokeThickness: 10,
       align: "right",
     });
-  }
-
-  makeButton(
-    img,
-    action,
-    alpha = 0.001,
-    flag = false,
-    x = this.gameCenterX,
-    y = this.gameCenterY,
-    force = false,
-  ) {
-    const button = this.add.image(x, y, img);
-    button.setAlpha(alpha);
-    button.setInteractive({ pixelPerfect: true });
-    button.on("pointerdown", () => {
-      if (this.registry.get("frozen") != true || force == true) {
-        action();
-      }
-    });
-
-    if (flag) {
-      this.registry.set(flag, true);
-    }
-    return button;
   }
 
   addImage(img, alpha = 1) {
@@ -200,48 +176,6 @@ export class BaseScene extends Scene {
     };
 
     playNextStep();
-  }
-
-  makeHover(area, text, x, y) {
-    const name = this.add.text(x, y, text, {
-      fontFamily: "Walter Turncoat",
-      fontSize: 48,
-      color: "black",
-      padding: { x: 10, y: 5 },
-      strokeThickness: 10,
-      align: "center",
-    });
-    name.elem_type = "hoverText";
-    name.setAlpha(0);
-    area.on("pointerover", () => {
-      name.setAlpha(1);
-    });
-    area.on("pointerout", () => {
-      this.tweens.killTweensOf(name);
-      this.tweens.add({
-        targets: name,
-        alpha: 0,
-        duration: 150,
-        ease: "Quad.easeOut",
-      });
-    });
-  }
-
-  collectItem = (item = "", inv_item, flag, text = "") => {
-    if (item != "") {
-      item.destroy();
-    }
-    const ui = this.scene.get("UI");
-    ui.addItem(inv_item);
-    this.registry.set(flag, true);
-    if (text != "") {
-      this.frozenText(text);
-    }
-  };
-
-  canDrop(dropped_on_item, action) {
-    dropped_on_item.setInteractive({ dropZone: true }); // enable drop detection
-    dropped_on_item._onDropAction = action;
   }
 
   showContinue() {
@@ -465,15 +399,4 @@ export class BaseScene extends Scene {
       ui.fadeIn(150);
     });
   }
-
-  // hideTexts() {
-  //   this
-  //     .filter((obj) => obj.elem_type === "hoverText")
-  //     .forEach((obj) => obj.setDepth(-1));
-  // }
-  // unhideTexts() {
-  //   this
-  //     .filter((obj) => obj.elem_type === "hoverText")
-  //     .forEach((obj) => obj.setDepth(1));
-  // }
 }

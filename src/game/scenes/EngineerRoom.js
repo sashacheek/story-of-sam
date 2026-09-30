@@ -8,10 +8,10 @@ export class EngineerRoom extends BaseScene {
 
   create() {
     this.createBase("engineer_room", "Engineer's Room");
-    const rear_deck = this.makeButton("engineer_to_rear", () =>
+    const rear_deck = this.buttontool.makeButton("engineer_to_rear", () =>
       this.moveLocation("RearDeck"),
     );
-    this.makeHover(rear_deck, "Rear Sector", 1450, 300);
+    this.buttontool.makeHover(rear_deck, "Rear Sector", 1450, 300);
 
     // transition from intro
     if (this.registry.get("introPlaying")) {
@@ -24,7 +24,7 @@ export class EngineerRoom extends BaseScene {
     // bot leg asset
     if (!this.registry.get("opened_leg")) {
       // make closed leg
-      this.leg = this.makeButton(
+      this.leg = this.buttontool.makeButton(
         "engineer_leg_closed",
         () => {
           this.frozenText(
@@ -34,7 +34,7 @@ export class EngineerRoom extends BaseScene {
         1,
       );
       this.leg.setInteractive({ dropZone: true });
-      this.canDrop(this.leg, (item, target) => {
+      this.buttontool.canDrop(this.leg, (item, target) => {
         let textureKey = item.texture
           ? item.texture.key
           : item.list && item.list[0].texture.key;
@@ -52,7 +52,7 @@ export class EngineerRoom extends BaseScene {
 
     // engineer asset
     if (!this.registry.get("tripped_bot")) {
-      this.makeButton(
+      this.buttontool.makeButton(
         "engineer_engineer",
         () =>
           this.frozenText(
@@ -72,7 +72,7 @@ export class EngineerRoom extends BaseScene {
       !this.registry.get("collected_screwdriver") &&
       !this.registry.get("tripped_bot")
     ) {
-      this.makeButton(
+      this.buttontool.makeButton(
         "engineer_screwdriver",
         () =>
           this.frozenText(
@@ -84,10 +84,10 @@ export class EngineerRoom extends BaseScene {
       this.registry.get("tripped_bot") &&
       !this.registry.get("collected_screwdriver")
     ) {
-      const screwdriver = this.makeButton(
+      const screwdriver = this.buttontool.makeButton(
         "engineer_screwdriver",
         () =>
-          this.collectItem(
+          this.buttontool.collectItem(
             screwdriver,
             "inv_screwdriver",
             "collected_screwdriver",

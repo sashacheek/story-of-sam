@@ -39,7 +39,11 @@ export class UI extends BaseScene {
       console.log("yippee");
     };
 
-    const settingsBtn = this.makeButton("settings", () => showSettings(), 1);
+    const settingsBtn = this.buttontool.makeButton(
+      "settings",
+      () => showSettings(),
+      1,
+    );
     settingsBtn.setDepth(5);
 
     this.uiRoot.add(settingsBtn);

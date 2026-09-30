@@ -7,12 +7,13 @@ export class Research extends BaseScene {
   }
   create() {
     this.createBase("research", "Research");
-    const reasearch_to_main = this.makeButton("research_to_main", () =>
-      this.moveLocation("MainHallway"),
+    const reasearch_to_main = this.buttontool.makeButton(
+      "research_to_main",
+      () => this.moveLocation("MainHallway"),
     );
-    this.makeHover(reasearch_to_main, "Main Hallway", 1530, 660);
+    this.buttontool.makeHover(reasearch_to_main, "Main Hallway", 1530, 660);
 
-    this.makeButton(
+    this.buttontool.makeButton(
       "research_researcher_1",
       () => {
         this.frozenText(
@@ -27,7 +28,7 @@ export class Research extends BaseScene {
     // ask to help with processing papers
     // if yes -> go into game scene
 
-    this.makeButton(
+    this.buttontool.makeButton(
       "research_researcher_2",
       () =>
         this.frozenTexts(
@@ -36,7 +37,7 @@ export class Research extends BaseScene {
             "Would you like to help with xyz?",
           ],
           () =>
-            this.makeButton(
+            this.buttontool.makeButton(
               "hack_clock",
               () => {
                 this.moveLocation("ClockPuzzle");
@@ -53,7 +54,7 @@ export class Research extends BaseScene {
 
     if (!this.registry.get("talked_lead_ra")) {
       let lead_ra;
-      lead_ra = this.makeButton(
+      lead_ra = this.buttontool.makeButton(
         "research_lead_ra",
         () => {
           this.registry.set("talked_lead_ra", true);

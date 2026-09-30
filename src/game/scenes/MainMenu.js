@@ -204,9 +204,9 @@ export class MainMenu extends BaseScene {
       this.moveLocation("Credits"),
     );
 
-    // this.makeButton("play", () => {
+    // this.buttontool.makeButton("play", () => {
     //   this.moveLocation("Game");
     // });
-    // this.makeButton("menu_to_credits", () => this.moveLocation("Credits"));
+    // this.buttontool.makeButton("menu_to_credits", () => this.moveLocation("Credits"));
   }
 }

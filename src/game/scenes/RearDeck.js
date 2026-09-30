@@ -8,14 +8,14 @@ export class RearDeck extends BaseScene {
 
   create() {
     this.createBase("rear_deck", "Rear Sector");
-    const main_hallway = this.makeButton("rear_to_main", () =>
+    const main_hallway = this.buttontool.makeButton("rear_to_main", () =>
       this.moveLocation("MainHallway"),
     );
-    this.makeHover(main_hallway, "Main Corridor", 800, 130);
-    const engineer_room = this.makeButton("rear_to_engineer", () =>
+    this.buttontool.makeHover(main_hallway, "Main Corridor", 800, 130);
+    const engineer_room = this.buttontool.makeButton("rear_to_engineer", () =>
       this.moveLocation("EngineerRoom"),
     );
-    this.makeHover(engineer_room, "Engineer's Room", 380, 675);
+    this.buttontool.makeHover(engineer_room, "Engineer's Room", 380, 675);
 
     const handleStorage = () => {
       if (!this.registry.get("shown_storage_error")) {
@@ -106,7 +106,7 @@ export class RearDeck extends BaseScene {
       }
     };
 
-    const storage_closet = this.makeButton(
+    const storage_closet = this.buttontool.makeButton(
       "rear_to_storage_draggable",
       () =>
         this.registry.get("unlocked_storage")
@@ -117,15 +117,15 @@ export class RearDeck extends BaseScene {
       1340,
       895,
     );
-    // const clock = this.makeButton('clock', () => this.frozenText("(Sam): "), 1, null, 930, 50);
-    this.makeHover(storage_closet, "Storage Closet", 1095, 675);
+    // const clock = this.buttontool.makeButton('clock', () => this.frozenText("(Sam): "), 1, null, 930, 50);
+    this.buttontool.makeHover(storage_closet, "Storage Closet", 1095, 675);
     // droppable
 
     if (!this.registry.get("unlocked_storage")) {
       const makeStorageClosetDroppable = () => {
         storage_closet.setInteractive({ dropZone: true });
 
-        this.canDrop(storage_closet, (item, target) => {
+        this.buttontool.canDrop(storage_closet, (item, target) => {
           let textureKey = item.texture
             ? item.texture.key
             : item.list && item.list[0].texture.key;
