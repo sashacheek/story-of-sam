@@ -1,6 +1,6 @@
 import { Scene } from "phaser";
 import { animateText } from "../tools/Typewriter";
-// import * as UITool from "./UITool.js";
+import * as UITool from "./UITool.js";
 // import * as TextTool from "./TextTool.js";
 // import * as ButtonTool from "./ButtonTool.js";
 
@@ -8,7 +8,7 @@ export class BaseScene extends Scene {
   constructor(sceneKey) {
     super(sceneKey);
 
-    // this.uitool = UITool;
+    this.uitool = UITool;
     // this.texttool = TextTool;
     // this.buttontool = ButtonTool;
   }
@@ -52,16 +52,16 @@ export class BaseScene extends Scene {
     });
   }
 
-  disableUI() {
-    this.hideTexts(this.children.list);
-    this.input.enabled = false;
-    this.scene.sleep("UI");
-  }
+  // disableUI() {
+  //   this.hideTexts(this);
+  //   this.input.enabled = false;
+  //   this.scene.sleep("UI");
+  // }
 
-  enableUI() {
-    this.input.enabled = true;
-    this.scene.wake("UI");
-  }
+  // enableUI() {
+  //   this.input.enabled = true;
+  //   this.scene.wake("UI");
+  // }
 
   makeButton(
     img,
@@ -102,12 +102,12 @@ export class BaseScene extends Scene {
 
     vid.play();
     vid.once("play", () => {
-      this.disableUI(this.children.list);
+      this.uitool.disableUI(this);
     });
     vid.once("complete", () => {
       vid.destroy();
-      this.unhideTexts(this.children.list);
-      this.enableUI();
+      this.uitool.unhideTexts(this);
+      this.uitool.enableUI(this);
       if (this.registry.get("noMusic") === false) {
         music.setVolume(0.2);
       }
@@ -165,7 +165,7 @@ export class BaseScene extends Scene {
       vid.play();
 
       vid.once("play", () => {
-        this.disableUI(this.children.list);
+        this.uitool.disableUI(this);
         if (previousVid) {
           previousVid.destroy();
         }
@@ -173,8 +173,8 @@ export class BaseScene extends Scene {
       });
 
       vid.once("complete", () => {
-        this.unhideTexts(this.children.list);
-        this.enableUI();
+        this.uitool.unhideTexts(this);
+        this.uitool.enableUI(this);
 
         if (currentIndex < texts.length) {
           const currentTextData = texts[currentIndex];
@@ -292,7 +292,7 @@ export class BaseScene extends Scene {
   }
 
   frozenText(text, onClose) {
-    this.hideTexts(this.children.list);
+    this.uitool.hideTexts(this);
     this.registry.set("frozen", true);
 
     const text_bg = this.add
@@ -348,7 +348,7 @@ export class BaseScene extends Scene {
             onComplete: () => {
               text_bg.destroy();
               this.registry.set("frozen", false);
-              this.unhideTexts(this.children.list);
+              this.uitool.unhideTexts(this);
 
               if (onClose) onClose();
             },
@@ -383,7 +383,7 @@ export class BaseScene extends Scene {
 
       if (index >= texts.length) {
         this.registry.set("frozen", false);
-        this.unhideTexts(this.children.list);
+        this.uitool.unhideTexts(this);
 
         if (text_bg) {
           this.tweens.add({
@@ -414,7 +414,7 @@ export class BaseScene extends Scene {
       }
 
       this.registry.set("frozen", true);
-      this.hideTexts(this.children.list);
+      this.uitool.hideTexts(this);
 
       if (!text_bg) {
         text_bg = this.add.image(960, 920, "text_bar_trimmed");
@@ -474,14 +474,14 @@ export class BaseScene extends Scene {
     });
   }
 
-  hideTexts() {
-    this.children.list
-      .filter((obj) => obj.elem_type === "hoverText")
-      .forEach((obj) => obj.setDepth(-1));
-  }
-  unhideTexts() {
-    this.children.list
-      .filter((obj) => obj.elem_type === "hoverText")
-      .forEach((obj) => obj.setDepth(1));
-  }
+  // hideTexts() {
+  //   this
+  //     .filter((obj) => obj.elem_type === "hoverText")
+  //     .forEach((obj) => obj.setDepth(-1));
+  // }
+  // unhideTexts() {
+  //   this
+  //     .filter((obj) => obj.elem_type === "hoverText")
+  //     .forEach((obj) => obj.setDepth(1));
+  // }
 }

@@ -27,7 +27,7 @@ export class RearDeck extends BaseScene {
         );
         this.registry.set("frozen", true);
         vid.once("play", () => {
-          this.disableUI();
+          this.uitool.disableUI(this);
         });
 
         vid.play();
@@ -55,7 +55,7 @@ export class RearDeck extends BaseScene {
                 music.setVolume(0.2);
               }
               this.registry.set("hinted_screwdriver", true);
-              this.enableUI();
+              this.uitool.enableUI(this);
               this.frozenText(
                 "(Sam): If I could just open up the card reader, maybe I could fix it.",
               );
@@ -65,7 +65,7 @@ export class RearDeck extends BaseScene {
             if (!this.registry.set("noMusic")) {
               music.setVolume(0.2);
             }
-            this.enableUI();
+            this.uitool.enableUI(this);
             this.frozenText(
               "(Sam): The card reader is glitching, I can't go in there right now",
             );
@@ -92,7 +92,7 @@ export class RearDeck extends BaseScene {
             music.setVolume(0.2);
           }
           this.registry.set("hinted_screwdriver", true);
-          this.enableUI();
+          this.uitool.enableUI(this);
           this.frozenText(
             "(Sam): If I could just open up the card reader, maybe I could fix it.",
           );
@@ -137,14 +137,14 @@ export class RearDeck extends BaseScene {
               "unlock_storage",
             );
             vid.once("play", () => {
-              this.disableUI();
+              this.uitool.disableUI(this);
             });
 
             vid.play();
             vid.once("complete", () => {
               this.registry.set("unlocked_storage", true);
               this.moveLocation("StorageCloset");
-              this.enableUI();
+              this.uitool.enableUI(this);
             });
           }
         });
