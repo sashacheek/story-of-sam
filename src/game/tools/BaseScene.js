@@ -1,9 +1,16 @@
 import { Scene } from "phaser";
 import { animateText } from "../tools/Typewriter";
+// import * as UITool from "./UITool.js";
+// import * as TextTool from "./TextTool.js";
+// import * as ButtonTool from "./ButtonTool.js";
 
 export class BaseScene extends Scene {
   constructor(sceneKey) {
     super(sceneKey);
+
+    // this.uitool = UITool;
+    // this.texttool = TextTool;
+    // this.buttontool = ButtonTool;
   }
 
   init(data) {
@@ -46,7 +53,7 @@ export class BaseScene extends Scene {
   }
 
   disableUI() {
-    this.hideTexts();
+    this.hideTexts(this.children.list);
     this.input.enabled = false;
     this.scene.sleep("UI");
   }
@@ -95,11 +102,11 @@ export class BaseScene extends Scene {
 
     vid.play();
     vid.once("play", () => {
-      this.disableUI();
+      this.disableUI(this.children.list);
     });
     vid.once("complete", () => {
       vid.destroy();
-      this.unhideTexts();
+      this.unhideTexts(this.children.list);
       this.enableUI();
       if (this.registry.get("noMusic") === false) {
         music.setVolume(0.2);
@@ -108,56 +115,7 @@ export class BaseScene extends Scene {
     });
   }
 
-  // vidSequence(vids, texts) {
-  //   let activeVideo = null;
-  //   if (this.registry.get("noMusic") === false) {
-  //     const music = this.sound.get("bgm");
-  //     music.setVolume(0.1);
-  //   }
-  //   for (let vidNum = 0; vidNum < vids.length; vidNum++) {
-  //     // console.log(vids.length);
-  //     const vid = this.add.video(
-  //       this.gameCenterX,
-  //       this.gameCenterY,
-  //       vids[vidNum],
-  //     );
-
-  //     vid.play();
-  //     if (activeVideo) {
-  //       activeVideo.destroy();
-  //     }
-  //     activeVideo = vid;
-  //     vid.once("play", () => {
-  //       // if (activeVideo) {
-  //       //   activeVideo.destroy();
-  //       // }
-  //       // activeVideo = vid;
-  //       this.disableUI();
-  //     });
-  //     vid.once("complete", () => {
-  //       // vid.destroy();
-  //       this.unhideTexts();
-  //       this.enableUI();
-  //       console.log("progress");
-  //       if (vidNum <= texts.length - 1) {
-  //         this.frozenText(texts[vidNum]);
-  //       }
-  //     });
-  //   }
-  //   if (this.registry.get("noMusic") === false) {
-  //     music.setVolume(0.2);
-  //   }
-  //   // input series of videos and texts
-  //   // provide support for multi line texts, eventually
-
-  //   // for videos in vid length
-  //   // show video
-  //   // frozen text
-  //   // on click/frozen text skipped, destroy previous vid and proceed ato next video
-  //   // rinse and repeat
-  // }
-
-  vidSequence(vids, texts) {
+  vidSequence(vids, texts, onComplete = null) {
     let currentIndex = 0;
     let previousVid = null;
 
@@ -182,12 +140,18 @@ export class BaseScene extends Scene {
           if (music) music.setVolume(0.2);
         }
 
-        if (this.scene.isActive("UI")) {
-          this.scene.setVisible(true, "UI");
-          this.scene.bringToTop("UI");
-          const ui = this.scene.get("UI");
-          ui.setGameplayVisible(this.showUI);
+        // if (!this.scene.isActive("UI")) {
+        this.scene.setVisible(true, "UI");
+        this.scene.bringToTop("UI");
+        const ui = this.scene.get("UI");
+        ui.setGameplayVisible(this.showUI);
+        // }
+
+        // Add these 3 lines:
+        if (typeof onComplete === "function") {
+          onComplete();
         }
+
         return;
       }
 
@@ -201,7 +165,7 @@ export class BaseScene extends Scene {
       vid.play();
 
       vid.once("play", () => {
-        this.disableUI();
+        this.disableUI(this.children.list);
         if (previousVid) {
           previousVid.destroy();
         }
@@ -209,7 +173,7 @@ export class BaseScene extends Scene {
       });
 
       vid.once("complete", () => {
-        this.unhideTexts();
+        this.unhideTexts(this.children.list);
         this.enableUI();
 
         if (currentIndex < texts.length) {
@@ -245,9 +209,6 @@ export class BaseScene extends Scene {
 
     playNextStep();
   }
-
-  // 3. A variant of frozenText that shows ONLY your text and background bar,
-  // without messing with global UI depth logic, allowing direct background clicking
 
   makeHover(area, text, x, y) {
     const name = this.add.text(x, y, text, {
@@ -291,21 +252,54 @@ export class BaseScene extends Scene {
     dropped_on_item._onDropAction = action;
   }
 
-  frozenText(text, onClose) {
-    this.hideTexts();
-    this.registry.set("frozen", true);
+  showContinue() {
+    let text = "Click Anywhere To Continue";
+    this.continueText = this.add.text(650, 745, text, {
+      fontFamily: "Walter Turncoat",
+      fontSize: 48,
+      color: "black",
+      padding: { x: 10, y: 5 },
+      strokeThickness: 10,
+      align: "right",
+    });
 
-    // If the UI is active and wasn't manually hidden by the cutscene system, put it to sleep
-    // const isUIActiveAndVisible =
-    //   this.scene.isActive("UI") && this.scene.isVisible("UI");
-    // if (isUIActiveAndVisible) {
-    //   this.scene.sleep("UI");
-    // }
+    this.tweens.add({
+      targets: this.continueText,
+      alpha: { from: 0, to: 1 },
+      ease: "Sine.InOut",
+      duration: 900,
+      repeat: -1,
+      yoyo: true,
+    });
+  }
+
+  removeContinue() {
+    if (this.continueText) {
+      this.continueText.destroy();
+    }
+    if (this.continueTimer) {
+      this.continueTimer.destroy();
+    }
+  }
+
+  createTimer() {
+    this.continueTimer = this.time.delayedCall(
+      5000,
+      this.showContinue,
+      [],
+      this,
+    );
+  }
+
+  frozenText(text, onClose) {
+    this.hideTexts(this.children.list);
+    this.registry.set("frozen", true);
 
     const text_bg = this.add
       .image(960, 920, "text_bar_trimmed")
       .setScale(0.9)
       .setDepth(100);
+
     const textObj = this.add
       .text(130, 850, text, {
         fontFamily: "Walter Turncoat",
@@ -324,18 +318,20 @@ export class BaseScene extends Scene {
     let finished = false;
     animateText(textObj).then(() => {
       finished = true;
+      this.createTimer();
     });
 
     const clickHandler = () => {
       if (!finished) {
         textObj.skipText();
       } else {
+        this.removeContinue();
         this.input.off("pointerdown", clickHandler);
 
         this.tweens.add({
           targets: textObj,
           scale: 0.9,
-          x: 220, // Your original slide-left animation
+          x: 220,
           duration: 100,
           ease: "Power2",
           onComplete: function () {
@@ -352,12 +348,7 @@ export class BaseScene extends Scene {
             onComplete: () => {
               text_bg.destroy();
               this.registry.set("frozen", false);
-              this.unhideTexts();
-
-              // Only wake the UI scene if it was actually visible/active before this text popped up
-              // if (isUIActiveAndVisible) {
-              //   this.scene.wake("UI");
-              // }
+              this.unhideTexts(this.children.list);
 
               if (onClose) onClose();
             },
@@ -375,7 +366,7 @@ export class BaseScene extends Scene {
     let text_bg = null;
 
     const showNext = () => {
-      // 1. Puzzle Choice Behavior: Spawn the choice button *during* the final line of text
+      this.removeContinue();
       if (index == texts.length - 1) {
         if (action && !executeAtEnd) {
           btn = action();
@@ -391,9 +382,8 @@ export class BaseScene extends Scene {
       }
 
       if (index >= texts.length) {
-        // CLEANUP: Clicking anywhere else increments index here to close everything out
         this.registry.set("frozen", false);
-        this.unhideTexts();
+        this.unhideTexts(this.children.list);
 
         if (text_bg) {
           this.tweens.add({
@@ -424,7 +414,7 @@ export class BaseScene extends Scene {
       }
 
       this.registry.set("frozen", true);
-      this.hideTexts();
+      this.hideTexts(this.children.list);
 
       if (!text_bg) {
         text_bg = this.add.image(960, 920, "text_bar_trimmed");
@@ -443,6 +433,7 @@ export class BaseScene extends Scene {
       let finished = false;
       animateText(textObj).then(() => {
         finished = true;
+        this.createTimer();
       });
 
       const clickHandler = () => {

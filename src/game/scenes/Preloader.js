@@ -37,11 +37,26 @@ export class Preloader extends Scene {
     this.load.video("memory_1", "prototype_videos/memory_1.mp4");
     this.load.video("clock_1", "prototype_videos/clock_1.mp4");
     this.load.video("placeholder", "prototype_videos/sample_video.mp4");
+    this.load.video(
+      "attempt_steal_pass",
+      "prototype_videos/attempt_steal_pass.mp4",
+    );
+    this.load.video(
+      "attempt_steal_metal",
+      "prototype_videos/attempt_steal_metal.mp4",
+    );
 
     this.load.video("card1_1", "prototype_videos/card1_1.mp4");
     this.load.video("card1_2", "prototype_videos/card1_2.mp4");
     this.load.video("card1_3", "prototype_videos/card1_3.mp4");
     this.load.video("card1_4", "prototype_videos/card1_4.mp4");
+
+    this.load.video("intro_1", "prototype_videos/intro_1.mp4");
+    this.load.video("intro_2", "prototype_videos/intro_2.mp4");
+    this.load.video("intro_3", "prototype_videos/intro_3.mp4");
+    this.load.video("intro_4", "prototype_videos/intro_4.mp4");
+    this.load.video("intro_5", "prototype_videos/intro_5.mp4");
+    this.load.video("intro_6", "prototype_videos/intro_6.mp4");
 
     this.load.video(
       "lead_ra_leaves_1",
@@ -60,6 +75,8 @@ export class Preloader extends Scene {
       "prototype_videos/lead_ra_leaves_4.mp4",
     );
 
+    this.load.video("open_leg", "prototype_videos/open_leg.mp4");
+
     // Images
 
     // sequences
@@ -72,11 +89,11 @@ export class Preloader extends Scene {
     this.load.image("intro7", "intro/7.PNG");
 
     // areas
-    this.load.image("menu", "areas/menu.PNG");
+    this.load.image("menu", "areas/menu.png");
     this.load.image("rear_deck", "areas/rear_module.PNG");
     this.load.image("main_hallway", "areas/main_hallway.PNG");
     this.load.image("bot_office", "areas/bot_office.PNG");
-    this.load.image("engineer_room", "areas/engineer_room.PNG");
+    this.load.image("engineer_room", "areas/engineer_room.png");
     this.load.image("storage_closet", "areas/storage_closet.PNG");
     this.load.image("research", "areas/research.PNG");
     this.load.image("clock_puzzle", "areas/clock_puzzle.PNG");
@@ -89,11 +106,19 @@ export class Preloader extends Scene {
     );
     this.load.image(
       "engineer_screwdriver",
-      "area_changeables/engineer_screwdriver.PNG",
+      "area_changeables/engineer_screwdriver.png",
     );
     this.load.image(
       "engineer_engineer",
-      "area_changeables/engineer_engineer.PNG",
+      "area_changeables/engineer_engineer.png",
+    );
+    this.load.image(
+      "engineer_leg_closed",
+      "area_changeables/engineer_leg_closed.png",
+    );
+    this.load.image(
+      "engineer_leg_open",
+      "area_changeables/engineer_leg_open.png",
     );
     this.load.image(
       "research_lead_ra",
@@ -124,7 +149,7 @@ export class Preloader extends Scene {
     );
     this.load.image(
       "engineer_to_rear",
-      "navigation_buttons/engineer_to_rear.PNG",
+      "navigation_buttons/engineer_to_rear.png",
     );
     this.load.image("rear_to_main", "navigation_buttons/rear_to_main.PNG");
     this.load.image(
@@ -187,6 +212,11 @@ export class Preloader extends Scene {
     this.load.image("clock_wires", "interaction_buttons/clock_wires.PNG");
     this.load.image("hack_clock", "interaction_buttons/hack_clock.PNG");
 
+    this.load.image(
+      "help_researcher",
+      "interaction_buttons/help_researcher.png",
+    );
+
     // collectibles
     // this.load.image("ruler", "interaction_buttons/ruler.png");
 
@@ -232,7 +262,7 @@ export class Preloader extends Scene {
 
   create() {
     // DEBUG
-    this.registry.set("skipIntro", false);
+    this.registry.set("skipIntro", true);
     this.registry.set("skipPhaseOne", false);
     this.registry.set("noMusic", true);
 
@@ -254,6 +284,10 @@ export class Preloader extends Scene {
     this.registry.set("phaseTwoFlags", [
       "collected_research_pass",
       "talked_lead_ra",
+      "hinted_confidential_pass",
+      "attempted_steal_pass",
+      "attempted_steal_metal",
+      "opened_leg",
     ]);
 
     this.registry.set("phaseTwoItems", {
@@ -283,11 +317,12 @@ export class Preloader extends Scene {
     if (!this.registry.get("noMusic")) {
       this.scene.launch("MusicScene");
     }
-
-    if (this.registry.get("skipIntro") || this.registry.get("skipPhaseOne")) {
-      this.scene.start("MainHallway");
-    } else {
-      this.scene.start("MainMenu");
-    }
+    document.fonts.load('10pt "Walter Turncoat"').then(() => {
+      if (this.registry.get("skipIntro") || this.registry.get("skipPhaseOne")) {
+        this.scene.start("MainHallway");
+      } else {
+        this.scene.start("MainMenu");
+      }
+    });
   }
 }

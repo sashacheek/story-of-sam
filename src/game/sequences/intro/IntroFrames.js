@@ -1,11 +1,11 @@
 export const introFrames = {
-  Intro1: {
-    key: "Intro1",
-    media: "intro1",
-    mediaType: "image",
-    text: "",
-    next: "Intro2",
-  },
+  // Intro1: {
+  //   key: "Intro1",
+  //   media: "intro1",
+  //   mediaType: "image",
+  //   text: "",
+  //   next: "Intro2",
+  // },
   Intro2: {
     key: "Intro2",
     media: "intro2",
@@ -17,28 +17,28 @@ export const introFrames = {
     key: "Intro3",
     media: "intro3",
     mediaType: "image",
-    text: "Engineer: You were found you on the ground, incapacitiated in the rear\nsector",
+    text: "Engineer: I found you unconcious on the floor of the rear\nsector. You were a little banged up, too!",
     next: "Intro4",
   },
   Intro4: {
     key: "Intro4",
     media: "intro4",
     mediaType: "image",
-    text: "Engineer: I've fixed you up as best as I could, but you seem mostly fine\nalready",
+    text: "Engineer: I've examined you and fixed you up a bit. Nothing seems too bad,\nthough, except...",
     next: "Intro5",
   },
   Intro5: {
     key: "Intro5",
     media: "intro5",
     mediaType: "image",
-    text: "Engineer: However, it looks like you're missing all but 1 of your Memory\nChips, not good...",
+    text: "Engineer: You're missing all but one of your Memory Chips!",
     next: "Intro6",
   },
   Intro6: {
     key: "Intro6",
     media: "intro6",
     mediaType: "image",
-    text: "Engineer: While this gets sortted this out, please return to your desk\nand resume your normal duties.",
+    text: "Engineer: While this gets sorted this out, please return to your desk\nand resume your normal duties.",
     next: "Intro7",
   },
   Intro7: {

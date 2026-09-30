@@ -11,7 +11,7 @@ export class EngineerRoom extends BaseScene {
     const rear_deck = this.makeButton("engineer_to_rear", () =>
       this.moveLocation("RearDeck"),
     );
-    this.makeHover(rear_deck, "Rear Sector", 1450, 440);
+    this.makeHover(rear_deck, "Rear Sector", 1450, 300);
 
     // transition from intro
     if (this.registry.get("introPlaying")) {
@@ -19,6 +19,35 @@ export class EngineerRoom extends BaseScene {
       this.frozenText(
         "(Sam): I should look around and see what I can find out.",
       );
+    }
+
+    // bot leg asset
+    if (!this.registry.get("opened_leg")) {
+      // make closed leg
+      this.leg = this.makeButton(
+        "engineer_leg_closed",
+        () => {
+          this.frozenText(
+            "The parts of a robot leg lie on this table. Maybe I could open it with the\nright tools.",
+          );
+        },
+        1,
+      );
+      this.leg.setInteractive({ dropZone: true });
+      this.canDrop(this.leg, (item, target) => {
+        let textureKey = item.texture
+          ? item.texture.key
+          : item.list && item.list[0].texture.key;
+        if (textureKey === "inv_screwdriver") {
+          this.vidSequence(
+            ["open_leg"],
+            ["(Sam): I could use these loose wires inside."],
+            () => {
+              this.registry.set("opened_leg", true);
+            },
+          );
+        }
+      });
     }
 
     // engineer asset

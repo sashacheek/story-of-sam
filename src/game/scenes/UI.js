@@ -1,6 +1,8 @@
 // UI.js
 import { BaseScene } from "../tools/BaseScene";
 
+// import * as ButtonTool from "../tools/ButtonTool";
+
 export class UI extends BaseScene {
   constructor() {
     super({ key: "UI", active: false });
@@ -112,7 +114,6 @@ export class UI extends BaseScene {
       x = worldPoint.x;
       y = worldPoint.y;
     } else {
-      // For world items like ruler, start somewhere in scene (or top-left)
       x = 50;
       y = 50;
     }
