@@ -20,6 +20,7 @@ export class MainHallway extends BaseScene {
       }
     }
 
+    // access denied
     const accessDenied = () => {
       let text = "(Sam): I don't have the access to go in there.";
       if (!this.registry.get("shown_access_denied")) {
@@ -36,7 +37,7 @@ export class MainHallway extends BaseScene {
     );
     this.buttontool.makeHover(rear_deck, "Rear Sector", 800, 850);
 
-    // research
+    // doors
     const research = this.buttontool.makeButton("main_to_research", () =>
       this.registry.get("collected_research_pass")
         ? this.moveLocation("Research")

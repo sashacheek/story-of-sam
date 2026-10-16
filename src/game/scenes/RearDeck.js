@@ -11,12 +11,15 @@ export class RearDeck extends BaseScene {
     const main_hallway = this.buttontool.makeButton("rear_to_main", () =>
       this.moveLocation("MainHallway"),
     );
+
+    // doors
     this.buttontool.makeHover(main_hallway, "Main Corridor", 800, 130);
     const engineer_room = this.buttontool.makeButton("rear_to_engineer", () =>
       this.moveLocation("EngineerRoom"),
     );
     this.buttontool.makeHover(engineer_room, "Engineer's Room", 380, 675);
 
+    // storage door
     const handleStorage = () => {
       if (!this.registry.get("shown_storage_error")) {
         this.input.enabled = false;
@@ -117,10 +120,10 @@ export class RearDeck extends BaseScene {
       1340,
       895,
     );
-    // const clock = this.buttontool.makeButton('clock', () => this.texttool.frozenText("(Sam): "), 1, null, 930, 50);
-    this.buttontool.makeHover(storage_closet, "Storage Closet", 1095, 675);
-    // droppable
 
+    this.buttontool.makeHover(storage_closet, "Storage Closet", 1095, 675);
+
+    // droppable
     if (!this.registry.get("unlocked_storage")) {
       const makeStorageClosetDroppable = () => {
         storage_closet.setInteractive({ dropZone: true });

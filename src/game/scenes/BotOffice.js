@@ -42,7 +42,7 @@ export class BotOffice extends BaseScene {
       this.buttontool.makeButton("lead_bot", () => unlockResearch());
     }
 
-    // if trippod bot is true, change clock text and prevent clock game from triggering (?) or send into completed game just to view
+    // clock
     this.buttontool.makeButton("clock_wires", () => {
       if (!this.registry.get("tripped_bot")) {
         this.texttool.frozenTexts(
@@ -71,8 +71,8 @@ export class BotOffice extends BaseScene {
       }
     });
 
+    //tripped bot
     const hintStorage = () => {
-      // makeClockDroppable();
       this.texttool.frozenTexts([
         "Bot: So much to do and so little time! I have to finish all this and go to\ncomms for shift change at 9.",
         "Bot: Have I seen anything strange? Well... Now that you mention it, I did\nhear something strange by the storage closet earlier.",
@@ -159,13 +159,5 @@ export class BotOffice extends BaseScene {
         );
       }
     }
-
-    // Interactables
-    // Clock
-    const clock = this.buttontool.makeButton("clock", () =>
-      this.texttool.frozenText(
-        "(Sam): There is a large digital clock on this wall.",
-      ),
-    );
   }
 }

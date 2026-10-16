@@ -7,7 +7,7 @@ export class Preloader extends Scene {
   }
 
   init() {
-    //  We loaded this image in our Boot Scene, so we can display it here\
+    //  We loaded this image in our Boot Scene, so we can display it here
     this.cameras.main.setBackgroundColor("#ffffff");
 
     // this.add.image(960, 540, "background");
@@ -202,11 +202,6 @@ export class Preloader extends Scene {
     this.load.image("clock_wires", "interaction_buttons/clock_wires.PNG");
     this.load.image("hack_clock", "interaction_buttons/hack_clock.PNG");
 
-    this.load.image(
-      "help_researcher",
-      "interaction_buttons/help_researcher.png",
-    );
-
     this.load.image("inv_screwdriver", "inventory/screwdriver.PNG");
     this.load.image("inv_bucket", "inventory/storage_bucket.PNG");
     this.load.image("text_bar", "inventory/text_bar.PNG");
@@ -238,6 +233,48 @@ export class Preloader extends Scene {
     this.load.image("node_conn_17-18", "clock_game/node_connections/17-18.png");
     this.load.image("node_conn_18-19", "clock_game/node_connections/18-19.png");
     this.load.image("node_conn_20-21", "clock_game/node_connections/20-21.png");
+
+    // research game
+
+    this.load.image(
+      "research_game_background",
+      "research_game/research_game_background.png",
+    );
+    this.load.image("help_researcher", "research_game/help_researcher.png");
+    this.load.image("mismatch_form", "research_game/mismatch_form.png");
+    this.load.image("report_1", "research_game/report_1.png");
+    this.load.image("report_2", "research_game/report_2.png");
+    this.load.image("report_3", "research_game/report_3.png");
+    this.load.image("report_4", "research_game/report_4.png");
+    this.load.image("report_5", "research_game/report_5.png");
+    this.load.image("expand", "research_game/expand.png");
+    this.load.image("expand_icon", "research_game/expand_icon.png");
+    this.load.image("collapse", "research_game/collapse.png");
+    this.load.image("collapse_icon", "research_game/collapse_icon.png");
+    this.load.image("researcher_hands", "research_game/researcher_hands.png");
+    this.load.image("report_training", "research_game/report_training.png");
+    this.load.image("tutorial_1", "research_game/tutorial_1.png");
+    this.load.image("tutorial_2", "research_game/tutorial_2.png");
+    this.load.image("tutorial_3", "research_game/tutorial_3.png");
+    this.load.image("tutorial_x", "research_game/tutorial_x.png");
+    this.load.image("rg_highlight_1", "research_game/rg_report_number.png");
+    this.load.image("rg_highlight_2", "research_game/rg_title.png");
+    this.load.image("rg_highlight_3", "research_game/rg_image.png");
+    this.load.image("rg_highlight_4", "research_game/rg_report_type.png");
+    this.load.image("rg_highlight_5", "research_game/rg_author.png");
+    this.load.image("rg_highlight_6", "research_game/rg_description.png");
+    this.load.image("rg_highlight_7", "research_game/rg_criticality.png");
+    this.load.image("rg_highlight_8", "research_game/rg_seal.png");
+    this.load.image("rg_checkbox", "research_game/rg_checkbox.png");
+    this.load.image("rg_filled_1", "research_game/filled_1.png");
+    this.load.image("rg_filled_2", "research_game/filled_2.png");
+    this.load.image("rg_filled_3", "research_game/filled_3.png");
+    this.load.image("rg_filled_4", "research_game/filled_4.png");
+    this.load.image("rg_filled_5", "research_game/filled_5.png");
+    this.load.image("rg_filled_6", "research_game/filled_6.png");
+    this.load.image("rg_filled_7", "research_game/filled_7.png");
+    this.load.image("rg_filled_8", "research_game/filled_8.png");
+    this.load.image("rg_submit", "research_game/rg_submit.png");
   }
 
   create() {
@@ -302,6 +339,7 @@ export class Preloader extends Scene {
         this.scene.start("MainHallway");
       } else {
         this.scene.start("MainMenu");
+        // this.scene.start("ResearchGame");
       }
     });
   }

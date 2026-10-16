@@ -10,11 +10,11 @@ import { MainMenu } from "./staticscenes/MainMenu";
 import { Preloader } from "./support/Preloader";
 import { AUTO, Game } from "phaser";
 import { Intro } from "./staticscenes/Intro";
-// import { StorageError } from "./sequences/storage/StorageError";
 import { UI } from "./support/UI";
 import { Music } from "./support/Music";
 import { Credits } from "./staticscenes/Credits";
 import { ClockPuzzle } from "./staticscenes/ClockPuzzle";
+import { ResearchGame } from "./staticscenes/ResearchGame";
 
 //  Find out more information about the Game Config at:
 //  https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -44,6 +44,7 @@ const config = {
     Music,
     Credits,
     ClockPuzzle,
+    ResearchGame,
   ],
 };
 

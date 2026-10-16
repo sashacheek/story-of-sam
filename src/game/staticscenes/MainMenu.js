@@ -7,13 +7,10 @@ export class MainMenu extends BaseScene {
   }
 
   spawnPolygonCircle(startEdge, endEdge, mask, initialProgress = 0) {
-    // 1. Pick a single random position percentage for the parallel paths
     const positionPercent = Phaser.Math.FloatBetween(0, 1);
     const startPoint = startEdge.getPoint(positionPercent);
     const endPoint = endEdge.getPoint(positionPercent);
 
-    // 2. Determine the actual spawn point based on initialProgress
-    // If initialProgress is 0.5, it spawns exactly halfway between start and end
     const pathLine = new Phaser.Geom.Line(
       startPoint.x,
       startPoint.y,
@@ -22,10 +19,8 @@ export class MainMenu extends BaseScene {
     );
     const spawnPoint = pathLine.getPoint(initialProgress);
 
-    // Randomize the circle's size
     const radius = Phaser.Math.Between(1, 4);
 
-    // Create the circle at the calculated spawn point
     const circle = this.add.circle(
       spawnPoint.x,
       spawnPoint.y,
@@ -36,15 +31,13 @@ export class MainMenu extends BaseScene {
     circle.setAlpha(1);
     circle.setMask(mask);
 
-    // 3. Calculate speed and duration based on the REMAINING distance
     const distanceRemaining = Phaser.Math.Distance.BetweenPoints(
       spawnPoint,
       endPoint,
     );
-    const speed = Phaser.Math.Between(15, 25); // pixels per second
+    const speed = Phaser.Math.Between(15, 25);
     const duration = (distanceRemaining / speed) * 1000;
 
-    // Animate the circle across the rest of the polygon
     this.tweens.add({
       targets: circle,
       x: endPoint.x,
@@ -118,22 +111,20 @@ export class MainMenu extends BaseScene {
     this.createBase("menu", "");
     this.cameras.main.setBackgroundColor("#000000");
 
-    // Define the polygon's points (e.g., a trapezoid shape)
     const points1 = [
-      { x: 0, y: 170 }, // Top-Left
-      { x: 175, y: 90 }, // Top-Right
-      { x: 175, y: 600 }, // Bottom-Right
-      { x: 0, y: 730 }, // Bottom-Left
+      { x: 0, y: 170 },
+      { x: 175, y: 90 },
+      { x: 175, y: 600 },
+      { x: 0, y: 730 },
     ];
 
     const points2 = [
-      { x: 1920, y: 170 }, // Top-Left
-      { x: 1755, y: 90 }, // Top-Right
-      { x: 1755, y: 600 }, // Bottom-Right
-      { x: 1920, y: 730 }, // Bottom-Left
+      { x: 1920, y: 170 },
+      { x: 1755, y: 90 },
+      { x: 1755, y: 600 },
+      { x: 1920, y: 730 },
     ];
 
-    // Draw the polygon and create a Mask from it
     const polyGraphics = this.add.graphics();
     // polyGraphics.fillStyle(0x222222, 1);
     // polyGraphics.lineStyle(2, 0x00ff00, 1);
@@ -203,10 +194,5 @@ export class MainMenu extends BaseScene {
     this.makeMenuButton(1080, 920, "Credits", () =>
       this.moveLocation("Credits"),
     );
-
-    // this.buttontool.makeButton("play", () => {
-    //   this.moveLocation("Game");
-    // });
-    // this.buttontool.makeButton("menu_to_credits", () => this.moveLocation("Credits"));
   }
 }

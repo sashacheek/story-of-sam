@@ -25,8 +25,6 @@ export class Research extends BaseScene {
     );
 
     // researcher 2
-    // ask to help with processing papers
-    // if yes -> go into game scene
 
     this.buttontool.makeButton(
       "research_researcher_2",
@@ -38,9 +36,10 @@ export class Research extends BaseScene {
           ],
           () =>
             this.buttontool.makeButton(
-              "hack_clock",
+              "help_researcher",
               () => {
-                this.moveLocation("ClockPuzzle");
+                this.registry.set("frozen", false);
+                this.moveLocation("ResearchGame");
               },
               1,
               undefined,
