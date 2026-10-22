@@ -8,15 +8,25 @@ export class ResearchGame extends BaseScene {
 
   create() {
     let collapse = "";
-    let collapse_icon = "";
-    let expand_icon = "";
     let isExpanded = false;
-
-    // create expand
-    // expand calls collapse
-    // collapse calls expand (itself) ?
+    let activeReport = "";
+    let mismatchElements = {
+      mismatchForm: "",
+      expandIcon: "",
+      collapseIcon: "",
+      submitButton: "",
+    };
 
     this.createBase("research_game_background", "");
+
+    let back = this.buttontool.makeButton(
+      "credits_to_menu",
+      () => this.moveLocation("Research"),
+      1,
+    );
+    back.setDepth(30);
+
+    let reportIndex = 0;
 
     let buttons_key = {
       report_number: {
@@ -93,10 +103,144 @@ export class ResearchGame extends BaseScene {
       },
     };
 
+    const reports = {
+      tutorial: {
+        image: "report_training",
+        mismatch: true,
+        key: [true, false, false, false, false, false, false, false],
+      },
+      report_1: {
+        image: "report_1",
+        mismatch: true,
+        key: [false, false, false, false, true, false, true, false],
+      },
+      report_2: {
+        image: "report_2",
+        mismatch: false,
+        key: [false, false, false, false, false, false, false, false],
+      },
+      report_3: {
+        image: "report_3",
+        mismatch: true,
+        key: [true, false, false, false, false, true, false, false],
+      },
+      report_4: {
+        image: "report_4",
+        mismatch: true,
+        key: [true, true, true, true, true, true, true, true],
+      },
+      report_5: {
+        image: "report_5",
+        mismatch: false,
+        key: [false, false, false, false, false, false, false, false],
+      },
+    };
+
+    const createExpand = () => {
+      isExpanded = false;
+      // if collapse, destroy collapse
+      if (collapse) {
+        if (mismatchElements.collapseIcon) {
+          mismatchElements.collapseIcon.destroy();
+        }
+        collapse.destroy();
+        let expand_elements = [];
+        const buttons_data = Object.values(buttons_key);
+        for (const button of buttons_data) {
+          expand_elements.push(button.filled_box);
+          expand_elements.push(button.highlight_box);
+        }
+        expand_elements.push(mismatchElements.mismatchForm);
+        expand_elements.push(mismatchElements.submitButton);
+        this.tweens.add({
+          targets: expand_elements,
+          y: "+=920",
+          duration: 500,
+          ease: "Sine.easeInOut",
+        });
+        // stop if expand is called
+        this.time.delayedCall(
+          600,
+          () => {
+            if (!isExpanded) {
+              mismatchElements.expandIcon = this.addImage("expand_icon");
+              this.tweens.add({
+                targets: mismatchElements.expandIcon,
+                y: 560,
+                duration: 1000,
+                ease: "Sine.easeInOut",
+                yoyo: true,
+                repeat: -1,
+              });
+            }
+          },
+          [],
+          this,
+        );
+      } else {
+        mismatchElements.expandIcon = this.addImage("expand_icon");
+        this.tweens.add({
+          targets: mismatchElements.expandIcon,
+          y: 560,
+          duration: 1000,
+          ease: "Sine.easeInOut",
+          yoyo: true,
+          repeat: -1,
+        });
+      }
+
+      let expand = this.buttontool.makeButton("expand", () => {
+        isExpanded = true;
+        let expand_elements = [];
+        const buttons_data = Object.values(buttons_key);
+        for (const button of buttons_data) {
+          expand_elements.push(button.filled_box);
+          expand_elements.push(button.highlight_box);
+        }
+        expand_elements.push(mismatchElements.mismatchForm);
+        expand_elements.push(mismatchElements.submitButton);
+        this.tweens.add({
+          targets: expand_elements,
+          y: "-=920",
+          duration: 500,
+          ease: "Sine.easeInOut",
+        });
+
+        if (mismatchElements.expandIcon) {
+          mismatchElements.expandIcon.destroy();
+        }
+        expand.destroy();
+        // stop if collapse is called
+        this.time.delayedCall(
+          600,
+          () => {
+            if (isExpanded) {
+              mismatchElements.collapseIcon = this.addImage("collapse_icon");
+              mismatchElements.collapseIcon.setDepth(10);
+              mismatchElements.collapseIcon.y += 10;
+              this.tweens.add({
+                targets: mismatchElements.collapseIcon,
+                y: 560,
+                duration: 1000,
+                ease: "Sine.easeInOut",
+                yoyo: true,
+                repeat: -1,
+              });
+            }
+          },
+          [],
+          this,
+        );
+        collapse = this.buttontool.makeButton("collapse", () => {
+          createExpand();
+        });
+      });
+    };
+
     const createMismatch = () => {
-      let mismatch_form = this.addImage("mismatch_form");
-      mismatch_form.y += 920;
-      mismatch_form.setDepth(10);
+      mismatchElements.mismatchForm = this.addImage("mismatch_form");
+      mismatchElements.mismatchForm.y += 920;
+      mismatchElements.mismatchForm.setDepth(10);
 
       // create buttons
       const buttons_data = Object.values(buttons_key);
@@ -132,22 +276,22 @@ export class ResearchGame extends BaseScene {
           }
         });
       }
-      const submit = this.buttontool.makeButton(
+      mismatchElements.submitButton = this.buttontool.makeButton(
         "rg_submit",
         () => {
-          console.log("submit");
+          submitForm();
         },
         1,
         false,
         962,
         977,
       );
-      submit.y += 920;
-      submit.setDepth(20);
+      mismatchElements.submitButton.y += 920;
+      mismatchElements.submitButton.setDepth(20);
 
-      submit.on("pointerover", () => {
+      mismatchElements.submitButton.on("pointerover", () => {
         this.tweens.add({
-          targets: [submit],
+          targets: [mismatchElements.submitButton],
           scaleX: 1.05,
           scaleY: 1.05,
           duration: 150,
@@ -156,9 +300,9 @@ export class ResearchGame extends BaseScene {
         });
       });
 
-      submit.on("pointerout", () => {
+      mismatchElements.submitButton.on("pointerout", () => {
         this.tweens.add({
-          targets: [submit],
+          targets: [mismatchElements.submitButton],
           scaleX: 1,
           scaleY: 1,
           duration: 150,
@@ -169,120 +313,159 @@ export class ResearchGame extends BaseScene {
 
       // createCollapse = () => {};
 
-      const createExpand = (submit) => {
-        // create buttons
+      createExpand();
+    };
 
-        isExpanded = false;
-        // if collapse, destroy collapse
-        if (collapse) {
-          if (collapse_icon) {
-            collapse_icon.destroy();
-          }
-          collapse.destroy();
-          let expand_elements = [];
-          const buttons_data = Object.values(buttons_key);
-          for (const button of buttons_data) {
-            expand_elements.push(button.filled_box);
-            expand_elements.push(button.highlight_box);
-          }
-          expand_elements.push(mismatch_form);
-          expand_elements.push(submit);
+    const transitionReport = (isValid) => {
+      // animate take back report
+      // if not isvalid, say that's not right, end minigame if not tutorial or retry if tutorial (?)
+      // if isvalid, say it's valid and retrigger minigame with next index, or if at end of index, end minigame
+      const mismatchItems = Object.values(mismatchElements);
+      for (const item of mismatchItems) {
+        item.destroy();
+      }
+
+      const buttons_data = Object.values(buttons_key);
+      for (const button of buttons_data) {
+        button.highlight_box.destroy();
+        button.filled_box.destroy();
+        button.selected = false;
+      }
+
+      let researcher_hands = this.addImage("researcher_hands");
+      researcher_hands.y -= 1200;
+      this.tweens.add({
+        targets: researcher_hands,
+        y: 540,
+        duration: 1000,
+        ease: "Sine.easeInOut",
+        onComplete: () => {
+          let moveUp = [];
+          moveUp.push(researcher_hands);
+          moveUp.push(activeReport);
           this.tweens.add({
-            targets: expand_elements,
-            y: "+=920",
-            duration: 500,
+            targets: moveUp,
+            y: "-=1200",
+            duration: 1000,
             ease: "Sine.easeInOut",
-          });
-          // stop if expand is called
-          this.time.delayedCall(
-            600,
-            () => {
-              if (!isExpanded) {
-                expand_icon = this.addImage("expand_icon");
-                this.tweens.add({
-                  targets: expand_icon,
-                  y: 560,
-                  duration: 1000,
-                  ease: "Sine.easeInOut",
-                  yoyo: true,
-                  repeat: -1,
-                });
+            onComplete: () => {
+              // if isvalid processing
+              if (!isValid) {
+                if (reportIndex == 0) {
+                  this.texttool.frozenTexts(
+                    [
+                      "Hmm... That doesn't look quite right.",
+                      "Maybe take take another look and try again.",
+                    ],
+                    () => {
+                      triggerGame();
+                    },
+                    true,
+                  );
+                } else {
+                  this.texttool.frozenTexts(
+                    [
+                      "Hmm... That doesn't look quite right. Thanks for trying, though.",
+                      "Talk to me again if you'd like to give it another shot.",
+                    ],
+                    () => {
+                      this.moveLocation("Research");
+                    },
+                  );
+                }
+              } else {
+                if (reportIndex == 5) {
+                  this.texttool.frozenTexts(
+                    [
+                      "That looks great!",
+                      "Those are all the reports I have right now. You've been a great help.",
+                      "Here, have this energy cell for giving me a hand with this.",
+                    ],
+                    () => {
+                      this.moveLocation("Research");
+                    },
+                    true,
+                  );
+                } else {
+                  this.texttool.frozenTexts(
+                    [
+                      "That looks great!",
+                      "Here, try check this next report for me, would you?",
+                    ],
+                    () => {
+                      reportIndex++;
+                      triggerGame();
+                    },
+                    true,
+                  );
+                }
               }
             },
-            [],
-            this,
+          });
+        },
+      });
+    };
+
+    const submitForm = () => {
+      const solution_key = Object.values(reports)[reportIndex].key;
+      const solution_mismatch = Object.values(reports)[reportIndex].mismatch;
+      // get data from submitted form
+      // if any are marked, first check if mismatch is true
+      // then check if marked items are in solution key
+      let isMismatch = false;
+      let isValid = true;
+      const buttons_data = Object.values(buttons_key);
+      for (let i = 0; i < buttons_data.length; i++) {
+        if (buttons_data[i].selected) {
+          isMismatch = true;
+          if (buttons_data[i].selected != solution_key[i]) {
+            isValid = false;
+          }
+        }
+      }
+      if (solution_mismatch != isMismatch) {
+        isValid = false;
+      }
+      transitionReport(isValid);
+      // if isvalid, trigger next
+    };
+
+    const triggerGame = () => {
+      collapse = "";
+      this.time.delayedCall(
+        200,
+        () => {
+          activeReport = this.addImage(
+            Object.values(reports)[reportIndex].image,
           );
-        } else {
-          expand_icon = this.addImage("expand_icon");
+          let researcher_hands = this.addImage("researcher_hands");
+          // report_1.setDepth(0);
+          activeReport.y -= 1200;
+          researcher_hands.y -= 1200;
+
           this.tweens.add({
-            targets: expand_icon,
-            y: 560,
+            targets: activeReport,
+            y: 540,
+            duration: 1000,
+            ease: "Sine.easeInOut",
+          });
+          this.tweens.add({
+            targets: researcher_hands,
+            y: 540,
             duration: 1000,
             ease: "Sine.easeInOut",
             yoyo: true,
-            repeat: -1,
           });
-        }
+        },
+        [],
+        this,
+      );
 
-        let expand = this.buttontool.makeButton("expand", () => {
-          isExpanded = true;
-          let expand_elements = [];
-          const buttons_data = Object.values(buttons_key);
-          for (const button of buttons_data) {
-            expand_elements.push(button.filled_box);
-            expand_elements.push(button.highlight_box);
-          }
-          expand_elements.push(mismatch_form);
-          expand_elements.push(submit);
-          this.tweens.add({
-            targets: expand_elements,
-            y: "-=920",
-            duration: 500,
-            ease: "Sine.easeInOut",
-          });
-
-          if (expand_icon) {
-            expand_icon.destroy();
-          }
-          expand.destroy();
-          // delete buttons
-          // stop if collapse is called
-          this.time.delayedCall(
-            600,
-            () => {
-              if (isExpanded) {
-                collapse_icon = this.addImage("collapse_icon");
-                collapse_icon.setDepth(10);
-                collapse_icon.y += 10;
-                this.tweens.add({
-                  targets: collapse_icon,
-                  y: 560,
-                  duration: 1000,
-                  ease: "Sine.easeInOut",
-                  yoyo: true,
-                  repeat: -1,
-                });
-              }
-            },
-            [],
-            this,
-          );
-          collapse = this.buttontool.makeButton("collapse", () => {
-            createExpand();
-          });
-        });
-      };
-      createExpand(submit);
+      createMismatch();
     };
 
-    // create report, pass in few values
-    // report img
-    // correct field answers
-    // tutoriaL flag ?
-
-    const createReport = () => {};
-
     const startTutorial = () => {
+      this.registry.set("seen_research_game_tutorial");
       let tutorial_1 = "";
       let tutorial_2 = "";
       let tutorial_3 = "";
@@ -290,14 +473,14 @@ export class ResearchGame extends BaseScene {
       this.texttool.frozenText(
         "Researcher: (Dialogue about happy you are helping)",
         () => {
-          let report_1 = this.addImage("report_training");
+          activeReport = this.addImage("report_training");
           let researcher_hands = this.addImage("researcher_hands");
           // report_1.setDepth(0);
-          report_1.y -= 1200;
+          activeReport.y -= 1200;
           researcher_hands.y -= 1200;
 
           this.tweens.add({
-            targets: report_1,
+            targets: activeReport,
             y: 540,
             duration: 1000,
             ease: "Sine.easeInOut",
@@ -428,6 +611,7 @@ export class ResearchGame extends BaseScene {
                                                 () => {
                                                   // add mismatch form
                                                   // pass in forms
+                                                  tutorial_x.destroy();
                                                   createMismatch();
                                                 },
                                                 true,
@@ -459,51 +643,26 @@ export class ResearchGame extends BaseScene {
       );
     };
 
+    // if (this.registry.get("seen_research_game_tutorial")) {
+    //    this.texttool.frozenTexts(
+    //       [
+    //         "I showed you the ropes last time, but would you like me to explain how it works again?",
+    //       ],
+    //       () =>
+    //         this.buttontool.makeButton(
+    //           "help_researcher",
+    //           () => {
+    //             // this.registry.set("frozen", false);
+    //             startTutorial();
+    //           },
+    //           1,
+    //           undefined,
+    //           undefined,
+    //           undefined,
+    //           true,
+    //         ),
+    //     ),
+    // }
     startTutorial();
-
-    const triggerGame = () => {
-      this.time.delayedCall(
-        200,
-        () => {
-          let report_1 = this.addImage("report_1");
-          let researcher_hands = this.addImage("researcher_hands");
-          // report_1.setDepth(0);
-          report_1.y -= 1200;
-          researcher_hands.y -= 1200;
-
-          this.tweens.add({
-            targets: report_1,
-            y: 540,
-            duration: 1000,
-            ease: "Sine.easeInOut",
-          });
-          this.tweens.add({
-            targets: researcher_hands,
-            y: 540,
-            duration: 1000,
-            ease: "Sine.easeInOut",
-            yoyo: true,
-          });
-
-          // this.tweens.add({
-          //   targets: researcher_hands,
-          //   y: 540,
-          //   duration: 1000,
-          //   ease: "Sine.easeInOut",
-          // });
-        },
-        [],
-        this,
-      );
-
-      createExpand();
-
-      let back = this.buttontool.makeButton(
-        "credits_to_menu",
-        () => this.moveLocation("Research"),
-        1,
-      );
-      back.setDepth(10);
-    };
   }
 }

@@ -305,6 +305,7 @@ export class Preloader extends Scene {
       "attempted_steal_pass",
       "attempted_steal_metal",
       "opened_leg",
+      "seen_research_game_tutorial",
     ]);
 
     this.registry.set("phaseTwoItems", {
@@ -338,8 +339,8 @@ export class Preloader extends Scene {
       if (this.registry.get("skipIntro") || this.registry.get("skipPhaseOne")) {
         this.scene.start("MainHallway");
       } else {
-        this.scene.start("MainMenu");
-        // this.scene.start("ResearchGame");
+        // this.scene.start("MainMenu");
+        this.scene.start("ResearchGame");
       }
     });
   }
