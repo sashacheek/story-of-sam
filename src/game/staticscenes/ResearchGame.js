@@ -369,6 +369,7 @@ export class ResearchGame extends BaseScene {
                       "Talk to me again if you'd like to give it another shot.",
                     ],
                     () => {
+                      this.registry.set("frozen", false);
                       this.moveLocation("Research");
                     },
                   );
@@ -379,9 +380,11 @@ export class ResearchGame extends BaseScene {
                     [
                       "That looks great!",
                       "Those are all the reports I have right now. You've been a great help.",
-                      "Here, have this energy cell for giving me a hand with this.",
+                      // "Here, have this energy cell for giving me a hand with this.",
                     ],
                     () => {
+                      this.registry.set("frozen", false);
+                      this.registry.set("researchGameWon", true);
                       this.moveLocation("Research");
                     },
                     true,

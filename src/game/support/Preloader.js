@@ -207,6 +207,35 @@ export class Preloader extends Scene {
     this.load.image("text_bar", "inventory/text_bar.PNG");
     this.load.image("text_bar_trimmed", "inventory/text_bar_trimmed.PNG");
 
+    // UI
+    this.load.image("ui_0_card", "ui/0_card.png");
+    this.load.image("ui_1_card", "ui/1_card.png");
+    this.load.image("ui_2_card", "ui/2_card.png");
+    this.load.image("ui_bot_1", "ui/bot_1.png");
+    this.load.image("ui_bot_2", "ui/bot_2.png");
+    this.load.image("ui_human_1", "ui/human_1.png");
+    this.load.image("ui_human_2", "ui/human_2.png");
+    this.load.image("ui_research", "ui/research.png");
+    this.load.image("ui_energy_cell", "ui/energy_cell.png");
+    this.load.image("ui_objectives", "ui/objectives.png");
+    // this.load.video("ui_1_card_animate", "ui/1_card_animate.mov");
+
+    this.load.atlas(
+      "ui_card_1_animate",
+      "ui/card_1_animate/spritesheet.png",
+      "ui/card_1_animate/spritesheet.json",
+    );
+    this.load.atlas(
+      "ui_card_2_animate",
+      "ui/card_2_spritesheet.png",
+      "ui/card_2_spritesheet.json",
+    );
+    this.load.atlas(
+      "ui_objectives_expand_animate",
+      "ui/objectives_expand_spritesheet.png",
+      "ui/objectives_expand_spritesheet.json",
+    );
+
     //clock game
     for (let i = 1; i <= 21; i++) {
       this.load.image(`clock_${i}`, `clock_game/${i}.PNG`);
@@ -329,18 +358,33 @@ export class Preloader extends Scene {
     )) {
       this.registry.set(flag, false);
     }
-
-    this.scene.launch("UI");
+    // const ui = SceneState.getScene().scene.get("UI");
+    this.scene.launch("UI", {
+      initialCard: "ui_bot_1",
+      memoryCardNum: 1,
+      cellsNum: 0,
+    });
+    // console.log(ui);
 
     if (!this.registry.get("noMusic")) {
       this.scene.launch("MusicScene");
     }
-    document.fonts.load('10pt "Walter Turncoat"').then(() => {
+    // document.fonts.load('10pt "Walter Turncoat"').then(() => {
+    //   if (this.registry.get("skipIntro") || this.registry.get("skipPhaseOne")) {
+    //     this.scene.start("MainHallway");
+    //   } else {
+    //     this.scene.start("MainMenu");
+    //     // this.scene.start("ResearchGame");
+    //   }
+    // });
+    Promise.all([
+      document.fonts.load('10pt "Walter Turncoat"'),
+      document.fonts.load('24pt "Saira Extra Condensed"'), // Replace with your second font
+    ]).then(() => {
       if (this.registry.get("skipIntro") || this.registry.get("skipPhaseOne")) {
         this.scene.start("MainHallway");
       } else {
-        // this.scene.start("MainMenu");
-        this.scene.start("ResearchGame");
+        this.scene.start("MainMenu");
       }
     });
   }

@@ -22,6 +22,49 @@ export class EngineerRoom extends BaseScene {
     }
 
     // bot leg asset
+    const createOpenedLeg = () => {
+      if (this.leg) {
+        this.leg.destroy();
+      }
+      this.leg = this.buttontool.makeButton(
+        "engineer_leg_open",
+        () => {
+          this.texttool.frozenText(
+            "The part of a robot leg on this table have been picked clean of anything\nuseful.",
+          );
+        },
+        1,
+      );
+    };
+
+    const createCellLeg = () => {
+      if (this.leg) {
+        this.leg.destroy();
+      }
+      this.leg = this.buttontool.makeButton(
+        "engineer_leg_open",
+        () => {
+          this.texttool.frozenText(
+            "Now that the wires are gone, there is an energy cell visible deep within\nthe leg.",
+            () => {
+              this.registry.set("cellLeg");
+              this.buttontool.addEnergyCellUI();
+              createOpenedLeg();
+            },
+          );
+        },
+        1,
+      );
+    };
+
+    if (this.registry.get("opened_leg")) {
+      if (!this.registry.get("cellLeg")) {
+        createCellLeg();
+      } else {
+        createOpenedLeg();
+      }
+    }
+
     if (!this.registry.get("opened_leg")) {
       // make closed leg
       this.leg = this.buttontool.makeButton(
@@ -44,6 +87,8 @@ export class EngineerRoom extends BaseScene {
             ["(Sam): I could use these loose wires inside."],
             () => {
               this.registry.set("opened_leg", true);
+              // this.buttontool.addEnergyCellUI();
+              createCellLeg();
             },
           );
         }

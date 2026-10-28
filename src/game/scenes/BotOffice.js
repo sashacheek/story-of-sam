@@ -25,19 +25,25 @@ export class BotOffice extends BaseScene {
     // Lead bot
     const unlockResearch = () => {
       this.registry.set("collected_research_pass", true);
-      this.texttool.frozenTexts([
-        "Lead Bot: Where is the Lead Research Assisstant? I need some very\nimportant files from him.",
-        "Lead Bot: You want to fetch him for me? Sure, that would be great.",
-        "Lead Bot: Here, take this key pass. It will get you into the research\nlab. Have him meet me here.",
-      ]);
+      this.texttool.frozenTexts(
+        [
+          "Lead Bot: Where is the Lead Research Assisstant? I need some very\nimportant files from him.",
+          "Lead Bot: You want to fetch him for me? Sure, that would be great.",
+          "Lead Bot: Here, take this key pass. It will get you into the research\nlab. Have him meet me here.",
+        ],
+        () => {
+          this.buttontool.addCardUI("", "ui_research");
+        },
+      );
     };
 
     if (!this.registry.get("collected_memory_card_1")) {
-      this.buttontool.makeButton("lead_bot", () =>
+      this.buttontool.makeButton("lead_bot", () => {
+        // this.buttontool.addCardUI("", "ui_bot_2");
         this.texttool.frozenText(
           "Lead Bot: Where is the Lead Research Assisstant? I need some very\nimportant files from him.",
-        ),
-      );
+        );
+      });
     } else {
       this.buttontool.makeButton("lead_bot", () => unlockResearch());
     }

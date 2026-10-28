@@ -62,9 +62,39 @@ function collectItem(item = "", inv_item, flag, text = "") {
   }
 }
 
+function addCardUI(item = "", inv_item, flag, text = "") {
+  if (item != "") {
+    item.destroy();
+  }
+  const ui = SceneState.getScene().scene.get("UI");
+  ui.addCard(inv_item);
+  SceneState.getScene().registry.set(flag, true);
+  if (text != "") {
+    texttool.frozenText(text);
+  }
+}
+
+function addMemoryCardUI() {
+  const ui = SceneState.getScene().scene.get("UI");
+  ui.addMemoryCard();
+}
+
+function addEnergyCellUI() {
+  const ui = SceneState.getScene().scene.get("UI");
+  ui.addEnergyCell();
+}
+
 function canDrop(dropped_on_item, action) {
   dropped_on_item.setInteractive({ dropZone: true });
   dropped_on_item._onDropAction = action;
 }
 
-export { makeButton, makeHover, collectItem, canDrop };
+export {
+  makeButton,
+  makeHover,
+  collectItem,
+  canDrop,
+  addCardUI,
+  addMemoryCardUI,
+  addEnergyCellUI,
+};

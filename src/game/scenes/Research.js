@@ -7,6 +7,19 @@ export class Research extends BaseScene {
   }
   create() {
     this.createBase("research", "Research");
+    this.registry.set("frozen", false);
+
+    if (this.registry.get("researchGameWon")) {
+      this.texttool.frozenText(
+        "Thanks so much for your help! Here, have this energy cell for your\ntroubles.",
+        () => {
+          this.buttontool.addEnergyCellUI();
+          this.registry.set("researchGameWon", false);
+          this.registry.set("cellResearchGame", true);
+        },
+      );
+    }
+
     const reasearch_to_main = this.buttontool.makeButton(
       "research_to_main",
       () => this.moveLocation("MainHallway"),
@@ -28,26 +41,33 @@ export class Research extends BaseScene {
 
     this.buttontool.makeButton(
       "research_researcher_2",
-      () =>
-        this.texttool.frozenTexts(
-          [
-            "Researcher 2: Hi I am researcher 2.",
-            "Would you like to help with xyz?",
-          ],
-          () =>
-            this.buttontool.makeButton(
-              "help_researcher",
-              () => {
-                this.registry.set("frozen", false);
-                this.moveLocation("ResearchGame");
-              },
-              1,
-              undefined,
-              undefined,
-              undefined,
-              true,
-            ),
-        ),
+      () => {
+        if (!this.registry.get("cellResearchGame")) {
+          this.texttool.frozenTexts(
+            [
+              "Researcher 2: Hi I am researcher 2.",
+              "Would you like to help with xyz?",
+            ],
+            () =>
+              this.buttontool.makeButton(
+                "help_researcher",
+                () => {
+                  this.registry.set("frozen", false);
+                  this.moveLocation("ResearchGame");
+                },
+                1,
+                undefined,
+                undefined,
+                undefined,
+                true,
+              ),
+          );
+        } else {
+          this.texttool.frozenText(
+            "Thanks again for your help, I'm all ready for lunch now.",
+          );
+        }
+      },
       1,
     );
 

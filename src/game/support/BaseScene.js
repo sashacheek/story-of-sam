@@ -46,7 +46,7 @@ export class BaseScene extends Scene {
       this.add.image(this.gameCenterX, this.gameCenterY, background);
     }
 
-    this.add.text(1500, 10, title, {
+    let _title = this.add.text(1815, 10, title, {
       fontFamily: "Walter Turncoat",
       fontSize: 48,
       color: "black",
@@ -54,6 +54,7 @@ export class BaseScene extends Scene {
       strokeThickness: 10,
       align: "right",
     });
+    _title.setOrigin(1, 0);
   }
 
   addImage(img, alpha = 1) {

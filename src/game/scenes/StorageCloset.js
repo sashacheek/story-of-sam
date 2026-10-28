@@ -32,6 +32,9 @@ export class StorageCloset extends BaseScene {
           ],
           ["...", "Unknown: So just how much of that did you hear?"],
         ],
+        () => {
+          this.buttontool.addMemoryCardUI();
+        },
       );
     };
     if (!this.registry.get("collected_memory_card_1")) {

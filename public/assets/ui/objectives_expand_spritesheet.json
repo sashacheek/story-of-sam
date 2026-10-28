@@ -1,0 +1,364 @@
+{
+  "frames": {
+    "frame_01": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_02": {
+      "frame": {
+        "x": 1920,
+        "y": 0,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_03": {
+      "frame": {
+        "x": 3840,
+        "y": 0,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_04": {
+      "frame": {
+        "x": 5760,
+        "y": 0,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_05": {
+      "frame": {
+        "x": 0,
+        "y": 1080,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_06": {
+      "frame": {
+        "x": 1920,
+        "y": 1080,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_07": {
+      "frame": {
+        "x": 3840,
+        "y": 1080,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_08": {
+      "frame": {
+        "x": 5760,
+        "y": 1080,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_09": {
+      "frame": {
+        "x": 0,
+        "y": 2160,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_10": {
+      "frame": {
+        "x": 1920,
+        "y": 2160,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_11": {
+      "frame": {
+        "x": 3840,
+        "y": 2160,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_12": {
+      "frame": {
+        "x": 5760,
+        "y": 2160,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_13": {
+      "frame": {
+        "x": 0,
+        "y": 3240,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_14": {
+      "frame": {
+        "x": 1920,
+        "y": 3240,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_15": {
+      "frame": {
+        "x": 3840,
+        "y": 3240,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_16": {
+      "frame": {
+        "x": 5760,
+        "y": 3240,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_17": {
+      "frame": {
+        "x": 0,
+        "y": 4320,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_18": {
+      "frame": {
+        "x": 1920,
+        "y": 4320,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_19": {
+      "frame": {
+        "x": 3840,
+        "y": 4320,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_20": {
+      "frame": {
+        "x": 5760,
+        "y": 4320,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_21": {
+      "frame": {
+        "x": 0,
+        "y": 5400,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_22": {
+      "frame": {
+        "x": 1920,
+        "y": 5400,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_23": {
+      "frame": {
+        "x": 3840,
+        "y": 5400,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_24": {
+      "frame": {
+        "x": 5760,
+        "y": 5400,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "frame_25": {
+      "frame": {
+        "x": 0,
+        "y": 6480,
+        "w": 1920,
+        "h": 1080
+      },
+      "rotated": false,
+      "trimmed": false,
+      "sourceSize": {
+        "w": 1920,
+        "h": 1080
+      }
+    }
+  },
+  "meta": {
+    "app": "https://codeshack.io/images-sprite-sheet-generator/",
+    "image": "spritesheet.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 7680,
+      "h": 7560
+    },
+    "scale": "1"
+  }
+}
