@@ -6,6 +6,13 @@ export class ClockPuzzle extends BaseScene {
     this.showUI = false;
   }
 
+  preload() {
+    this.load.setPath("assets");
+    this.load.video("clock_1", "prototype_videos/clock_1.mp4");
+    this.load.video("clock_2", "prototype_videos/clock_2.mp4");
+    this.load.video("clock_3", "prototype_videos/clock_3.mp4");
+  }
+
   create() {
     this.createBase("clock_puzzle", "");
     // this.addImage("clock_numbers");
@@ -74,9 +81,18 @@ export class ClockPuzzle extends BaseScene {
             nodes_stack.length === win_stack.length &&
             nodes_stack.every((val, index) => val === win_stack[index])
           ) {
-            this.registry.set("tripped_bot", true);
             // trigger video
-            this.moveLocation("BotOffice");
+            this.vidtool.vidSequence(
+              ["clock_1", "clock_2", "clock_3"],
+              [
+                "Sam: What? I meant to scramble it, not just change the hour a little!\nThere's no way just this will get the engineer's attention.",
+                "Bot: Wait, the clock is off. That's odd.",
+              ],
+              () => {
+                this.registry.set("tripped_bot", true);
+                this.moveLocation("BotOffice");
+              },
+            );
           }
         });
       }

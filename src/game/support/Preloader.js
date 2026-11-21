@@ -35,7 +35,7 @@ export class Preloader extends Scene {
     this.load.video("storage_screw", "prototype_videos/storage_screw.mp4");
     this.load.video("unlock_storage", "prototype_videos/unlock_storage.mp4");
     this.load.video("memory_1", "prototype_videos/memory_1.mp4");
-    this.load.video("clock_1", "prototype_videos/clock_1.mp4");
+    // this.load.video("clock_1", "prototype_videos/clock_1.mp4");
     this.load.video("placeholder", "prototype_videos/sample_video.mp4");
     this.load.video(
       "attempt_steal_pass",
@@ -50,6 +50,7 @@ export class Preloader extends Scene {
     this.load.video("card1_2", "prototype_videos/card1_2.mp4");
     this.load.video("card1_3", "prototype_videos/card1_3.mp4");
     this.load.video("card1_4", "prototype_videos/card1_4.mp4");
+    this.load.video("card1_5", "prototype_videos/card1_5.mp4");
 
     this.load.video("intro_1", "prototype_videos/intro_1.mp4");
     this.load.video("intro_2", "prototype_videos/intro_2.mp4");
