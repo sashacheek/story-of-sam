@@ -83,7 +83,11 @@ export class ClockPuzzle extends BaseScene {
           ) {
             // trigger video
             this.vidtool.vidSequence(
-              ["clock_1", "clock_2", "clock_3"],
+              [
+                "assets/prototype_videos/clock_1.mp4",
+                "assets/prototype_videos/clock_2.mp4",
+                "assets/prototype_videos/clock_3.mp4",
+              ],
               [
                 "Sam: What? I meant to scramble it, not just change the hour a little!\nThere's no way just this will get the engineer's attention.",
                 "Bot: Wait, the clock is off. That's odd.",

@@ -6,13 +6,12 @@ function vidText(video, text) {
   const vid = SceneState.getScene().add.video(
     SceneState.getScene().gameCenterX,
     SceneState.getScene().gameCenterY,
-    video,
   );
   if (SceneState.getScene().registry.get("noMusic") === false) {
     const music = SceneState.getScene().sound.get("bgm");
     music.setVolume(0.1);
   }
-
+  vid.loadURL(video);
   vid.play();
   vid.once("play", () => {
     uitool.disableUI();
@@ -72,9 +71,10 @@ function vidSequence(vids, texts, onComplete = null) {
     const vid = SceneState.getScene().add.video(
       SceneState.getScene().gameCenterX,
       SceneState.getScene().gameCenterY,
-      currentVidKey,
+      // currentVidKey,
     );
 
+    vid.loadURL(currentVidKey);
     vid.play();
 
     vid.once("play", () => {

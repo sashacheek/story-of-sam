@@ -29,7 +29,7 @@ export class UI extends BaseScene {
 
     this.uiRoot = this.add.container(0, 0);
 
-    this.inventory = this.add.container(25, 100);
+    this.inventory = this.add.container(10, 175);
     this.uiRoot.add(this.inventory);
 
     this.accessCards = this.add.container(0, 0);

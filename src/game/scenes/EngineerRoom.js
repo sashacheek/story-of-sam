@@ -83,7 +83,7 @@ export class EngineerRoom extends BaseScene {
           : item.list && item.list[0].texture.key;
         if (textureKey === "inv_screwdriver") {
           this.vidtool.vidSequence(
-            ["open_leg"],
+            ["assets/prototype_videos/open_leg.mp4"],
             ["(Sam): I could use these loose wires inside."],
             () => {
               this.registry.set("opened_leg", true);

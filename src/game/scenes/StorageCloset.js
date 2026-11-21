@@ -22,7 +22,13 @@ export class StorageCloset extends BaseScene {
       memory_card_1.destroy();
       // this.vidtool.vidText("memory_1", "(Sam): No way!");
       this.vidtool.vidSequence(
-        ["card1_1", "card1_2", "card1_3", "card1_4", "card1_5"],
+        [
+          "assets/prototype_videos/card1_1.mp4",
+          "assets/prototype_videos/card1_2.mp4",
+          "assets/prototype_videos/card1_3.mp4",
+          "assets/prototype_videos/card1_4.mp4",
+          "assets/prototype_videos/card1_5.mp4",
+        ],
         [
           "Sam: It's one of my missing memory chips!",
           "Unknown: Yeah, it's all going well. They don't suspect a thing.",

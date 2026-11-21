@@ -11,7 +11,14 @@ export class Intro extends BaseScene {
     this.registry.set("introPlaying", true);
 
     this.vidtool.vidSequence(
-      ["intro_1", "intro_2", "intro_3", "intro_4", "intro_5", "intro_6"],
+      [
+        "assets/prototype_videos/intro_1.mp4",
+        "assets/prototype_videos/intro_2.mp4",
+        "assets/prototype_videos/intro_3.mp4",
+        "assets/prototype_videos/intro_4.mp4",
+        "assets/prototype_videos/intro_5.mp4",
+        "assets/prototype_videos/intro_6.mp4",
+      ],
       [
         [
           "Engineer: Sam! Are you awake? Bot 792, nickname Sam!",

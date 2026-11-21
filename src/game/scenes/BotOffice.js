@@ -101,7 +101,7 @@ export class BotOffice extends BaseScene {
         "stressed_bot",
         () => {
           this.vidtool.vidSequence(
-            ["attempt_steal_metal"],
+            ["assets/prototype_videos/attempt_steal_metal.mp4"],
             [
               [
                 "Bot: Look, I don't care what you're trying to do, as long as you do\nsomething for me first.",
@@ -135,7 +135,7 @@ export class BotOffice extends BaseScene {
               "stressed_bot",
               () => {
                 this.vidtool.vidSequence(
-                  ["attempt_steal_metal"],
+                  ["assets/prototype_videos/attempt_steal_metal.mp4"],
                   [
                     [
                       "Bot: Look, I don't care what you're trying to do, as long as you do\nsomething for me first.",
@@ -149,7 +149,7 @@ export class BotOffice extends BaseScene {
               },
             );
             this.vidtool.vidSequence(
-              ["attempt_steal_pass"],
+              ["assets/prototype_videos/attempt_steal_pass.mp4"],
               [
                 [
                   "Engineer: Sam! Perfect, I need just a few things to fix up (Name), could\nyou fetch them for me?",

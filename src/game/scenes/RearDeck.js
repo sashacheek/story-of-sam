@@ -23,11 +23,16 @@ export class RearDeck extends BaseScene {
     const handleStorage = () => {
       if (!this.registry.get("shown_storage_error")) {
         this.input.enabled = false;
+        // this.vidtool.vidSequence(
+        //   ["assets/prototype_videos/"]
+        // )
+
         const vid = this.add.video(
           this.gameCenterX,
           this.gameCenterY,
-          "storage_error",
+          // "storage_error",
         );
+        vid.loadURL("assets/prototype_videos/storage_error.mp4");
         this.registry.set("frozen", true);
         vid.once("play", () => {
           this.uitool.disableUI();
@@ -47,8 +52,9 @@ export class RearDeck extends BaseScene {
             const vid2 = this.add.video(
               this.gameCenterX,
               this.gameCenterY,
-              "storage_screw",
+              // "storage_screw",
             );
+            vid2.loadURL("assets/prototype_videos/storage_screw.mp4");
             vid2.play();
 
             vid2.once("complete", () => {
@@ -82,8 +88,9 @@ export class RearDeck extends BaseScene {
         const vid2 = this.add.video(
           this.gameCenterX,
           this.gameCenterY,
-          "storage_screw",
+          // "storage_screw",
         );
+        vid2.loadURL("assets/prototype_videos/storage_screw.mp4");
         vid2.play();
         if (!this.registry.set("noMusic")) {
           music.setVolume(0.1);
@@ -137,8 +144,9 @@ export class RearDeck extends BaseScene {
             const vid = this.add.video(
               this.gameCenterX,
               this.gameCenterY,
-              "unlock_storage",
+              // "unlock_storage",
             );
+            vid.loadURL("assets/prototype_videos/unlock_storage.mp4");
             vid.once("play", () => {
               this.uitool.disableUI();
             });

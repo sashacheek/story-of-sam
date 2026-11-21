@@ -29,54 +29,53 @@ export class Preloader extends Scene {
     this.load.setPath("assets");
 
     // videos
-    this.load.video("credits_vid", "prototype_videos/credits_vid.mp4");
-    this.load.video("intro", "prototype_videos/intro.mp4");
-    this.load.video("storage_error", "prototype_videos/storage_error.mp4");
-    this.load.video("storage_screw", "prototype_videos/storage_screw.mp4");
-    this.load.video("unlock_storage", "prototype_videos/unlock_storage.mp4");
-    this.load.video("memory_1", "prototype_videos/memory_1.mp4");
-    // this.load.video("clock_1", "prototype_videos/clock_1.mp4");
-    this.load.video("placeholder", "prototype_videos/sample_video.mp4");
-    this.load.video(
-      "attempt_steal_pass",
-      "prototype_videos/attempt_steal_pass.mp4",
-    );
-    this.load.video(
-      "attempt_steal_metal",
-      "prototype_videos/attempt_steal_metal.mp4",
-    );
+    // this.load.video("credits_vid", "prototype_videos/credits_vid.mp4");
+    // this.load.video("intro", "prototype_videos/intro.mp4");
+    // this.load.video("storage_error", "prototype_videos/storage_error.mp4");
+    // this.load.video("storage_screw", "prototype_videos/storage_screw.mp4");
+    // this.load.video("unlock_storage", "prototype_videos/unlock_storage.mp4");
+    // this.load.video("memory_1", "prototype_videos/memory_1.mp4");
+    // this.load.video("placeholder", "prototype_videos/sample_video.mp4");
+    // this.load.video(
+    //   "attempt_steal_pass",
+    //   "prototype_videos/attempt_steal_pass.mp4",
+    // );
+    // this.load.video(
+    //   "attempt_steal_metal",
+    //   "prototype_videos/attempt_steal_metal.mp4",
+    // );
 
-    this.load.video("card1_1", "prototype_videos/card1_1.mp4");
-    this.load.video("card1_2", "prototype_videos/card1_2.mp4");
-    this.load.video("card1_3", "prototype_videos/card1_3.mp4");
-    this.load.video("card1_4", "prototype_videos/card1_4.mp4");
-    this.load.video("card1_5", "prototype_videos/card1_5.mp4");
+    // this.load.video("card1_1", "prototype_videos/card1_1.mp4");
+    // this.load.video("card1_2", "prototype_videos/card1_2.mp4");
+    // this.load.video("card1_3", "prototype_videos/card1_3.mp4");
+    // this.load.video("card1_4", "prototype_videos/card1_4.mp4");
+    // this.load.video("card1_5", "prototype_videos/card1_5.mp4");
 
-    this.load.video("intro_1", "prototype_videos/intro_1.mp4");
-    this.load.video("intro_2", "prototype_videos/intro_2.mp4");
-    this.load.video("intro_3", "prototype_videos/intro_3.mp4");
-    this.load.video("intro_4", "prototype_videos/intro_4.mp4");
-    this.load.video("intro_5", "prototype_videos/intro_5.mp4");
-    this.load.video("intro_6", "prototype_videos/intro_6.mp4");
+    // this.load.video("intro_1", "prototype_videos/intro_1.mp4");
+    // this.load.video("intro_2", "prototype_videos/intro_2.mp4");
+    // this.load.video("intro_3", "prototype_videos/intro_3.mp4");
+    // this.load.video("intro_4", "prototype_videos/intro_4.mp4");
+    // this.load.video("intro_5", "prototype_videos/intro_5.mp4");
+    // this.load.video("intro_6", "prototype_videos/intro_6.mp4");
 
-    this.load.video(
-      "lead_ra_leaves_1",
-      "prototype_videos/lead_ra_leaves_1.mp4",
-    );
-    this.load.video(
-      "lead_ra_leaves_2",
-      "prototype_videos/lead_ra_leaves_2.mp4",
-    );
-    this.load.video(
-      "lead_ra_leaves_3",
-      "prototype_videos/lead_ra_leaves_3.mp4",
-    );
-    this.load.video(
-      "lead_ra_leaves_4",
-      "prototype_videos/lead_ra_leaves_4.mp4",
-    );
+    // this.load.video(
+    //   "lead_ra_leaves_1",
+    //   "prototype_videos/lead_ra_leaves_1.mp4",
+    // );
+    // this.load.video(
+    //   "lead_ra_leaves_2",
+    //   "prototype_videos/lead_ra_leaves_2.mp4",
+    // );
+    // this.load.video(
+    //   "lead_ra_leaves_3",
+    //   "prototype_videos/lead_ra_leaves_3.mp4",
+    // );
+    // this.load.video(
+    //   "lead_ra_leaves_4",
+    //   "prototype_videos/lead_ra_leaves_4.mp4",
+    // );
 
-    this.load.video("open_leg", "prototype_videos/open_leg.mp4");
+    // this.load.video("open_leg", "prototype_videos/open_leg.mp4");
 
     // Images
 

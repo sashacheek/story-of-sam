@@ -6,7 +6,8 @@ export class Credits extends BaseScene {
   }
   create() {
     this.createBase("");
-    const vid = this.add.video(1920 / 2, 1080 / 2, "credits_vid");
+    const vid = this.add.video(1920 / 2, 1080 / 2);
+    vid.loadURL("assets/prototype_videos/credits_vid.mp4");
     vid.play(true);
     const nav = this.buttontool.makeButton(
       "credits_to_menu",

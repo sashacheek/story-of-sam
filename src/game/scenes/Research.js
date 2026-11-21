@@ -79,10 +79,10 @@ export class Research extends BaseScene {
           this.registry.set("talked_lead_ra", true);
           this.vidtool.vidSequence(
             [
-              "lead_ra_leaves_1",
-              "lead_ra_leaves_2",
-              "lead_ra_leaves_3",
-              "lead_ra_leaves_4",
+              "assets/prototype_videos/lead_ra_leaves_1.mp4",
+              "assets/prototype_videos/lead_ra_leaves_2.mp4",
+              "assets/prototype_videos/lead_ra_leaves_3.mp4",
+              "assets/prototype_videos/lead_ra_leaves_4.mp4",
             ],
             [
               "A bot? We don't get many bots around here.",
